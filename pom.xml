@@ -154,6 +154,9 @@
                                 <goal>aggregate</goal>
                             </goals>
                             <phase>package</phase>
+                            <configuration>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>attach-javadocs</id>
@@ -161,6 +164,9 @@
                                 <goal>jar</goal>
                             </goals>
                             <phase>package</phase>
+                            <configuration>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -243,6 +249,9 @@
                                     <goal>aggregate</goal>
                                 </goals>
                                 <phase>package</phase>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>attach-javadocs</id>
