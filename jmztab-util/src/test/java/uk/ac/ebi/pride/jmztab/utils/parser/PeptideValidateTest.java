@@ -26,10 +26,10 @@ public class PeptideValidateTest {
 
     public PeptideValidateTest() throws Exception {
         MTDLineParserTest test = new MTDLineParserTest();
-        String fileName = "testset/mtdFile.txt";
+        String fileName = "/testset/mtdFile.txt";
         Metadata metadata;
 
-        URL uri = PSMValidateTest.class.getClassLoader().getResource(fileName);
+        URL uri = getClass().getResource(fileName);
         if(uri != null) {
             metadata = test.parseMetadata(uri.getFile());
         } else {

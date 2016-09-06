@@ -29,9 +29,9 @@ public class MZTabHeaderLineValidateTest {
     @Before
     public void setUp() throws Exception {
         MTDLineParserTest test = new MTDLineParserTest();
-        String fileName = "testset/mtdFile.txt";
+        String fileName = "/testset/mtdFile.txt";
 
-        URL uri = MZTabHeaderLineValidateTest.class.getClassLoader().getResource(fileName);
+        URL uri = getClass().getResource(fileName);
         if(uri!=null) {
             metadata = test.parseMetadata(uri.getFile());
         } else {
