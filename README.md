@@ -36,10 +36,10 @@ java -jar mzTabCLI.jar -help
 The output will like following:
 ```
 usage: jmztab
- -check <inFile>             Choose a file from input directory. This parameter should not be null!
- -convert <inFile, format>   Converts the given format file (PRIDE or mzIdentML) to an mztab file.
+ -check inFile=<inFile>             Choose a file from input directory. This parameter should not be null!
+ -convert inFile=<inFile format=<format>   Converts the given format file (PRIDE or mzIdentML) to an mztab file.
  -h,--help                   print help message
- -message <code>             print Error/Warn detail message based on code number.
+ -message code=<code>             print Error/Warn detail message based on code number.
  -outFile <arg>              Record error/warn messages into outfile. If not set, print message on the screen.
 ```
 
