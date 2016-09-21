@@ -165,7 +165,7 @@ public class PSM extends MZTabRecord {
      * A "|" delimited list of search engine(s) used to create the PSM. Search engines must be supplied as parameters.
      */
     public SplitList<Param> getSearchEngine() {
-        return getSplitList(PSMColumn.SEARCH_ENGINE.getLogicPosition());
+        return getSplitList(PSMColumn.SEARCH_ENGINE.getLogicPosition(), Param.class);
     }
 
     /**
@@ -290,7 +290,7 @@ public class PSM extends MZTabRecord {
      * those induced by quantification reagents) MUST BE reported in the PSM section.
      */
     public SplitList<Modification> getModifications() {
-        return getSplitList(PSMColumn.MODIFICATIONS.getLogicPosition());
+        return getSplitList(PSMColumn.MODIFICATIONS.getLogicPosition(), Modification.class);
     }
 
     /**
@@ -344,7 +344,7 @@ public class PSM extends MZTabRecord {
      * in the Metadata Section ('columnit_psm').
      */
     public SplitList<Double> getRetentionTime() {
-        return getSplitList(PSMColumn.RETENTION_TIME.getLogicPosition());
+        return getSplitList(PSMColumn.RETENTION_TIME.getLogicPosition(), Double.class);
     }
 
     /**
@@ -496,7 +496,7 @@ public class PSM extends MZTabRecord {
      * Multiple spectra MUST be referenced using a "|" delimited list.
      */
     public SplitList<SpectraRef> getSpectraRef() {
-        return getSplitList(PSMColumn.SPECTRA_REF.getLogicPosition());
+        return getSplitList(PSMColumn.SPECTRA_REF.getLogicPosition(), SpectraRef.class);
     }
 
     /**

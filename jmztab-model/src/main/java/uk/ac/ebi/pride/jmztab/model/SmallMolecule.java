@@ -4,10 +4,11 @@ import java.net.URI;
 
 import static uk.ac.ebi.pride.jmztab.model.MZTabConstants.*;
 import static uk.ac.ebi.pride.jmztab.model.MZTabUtils.*;
+import static uk.ac.ebi.pride.jmztab.model.SmallMoleculeColumn.SML_ID;
 
 /**
- * The small molecule section is table-based. The small molecule section MUST always come after the metadata section,
- * peptide section and or protein section if they are present in the file. All table columns MUST be Tab separated.
+ * The small molecule section is table-based. The small molecule section MUST always come after the metadata section.
+ * The small molecule section MUST NOT occur if either peptide or protein sections occur. All table columns MUST be Tab separated.
  * There MUST NOT be any empty cells. Missing values MUST be reported using "null". Most columns are mandatory.
  * The order of columns is not specified although for ease of human interpretation, it is RECOMMENDED to follow the
  * order specified below.
@@ -28,6 +29,39 @@ public class SmallMolecule extends MZTabRecord {
         super(factory);
         this.metadata = metadata;
     }
+    
+    public Integer getSmallMoleculeId() {
+        return getInteger(SmallMoleculeColumn.SML_ID);
+    }
+    
+    public void setSmallMoleculeId(Integer smlId) {
+        setValue(SML_ID, smlId);
+    }
+    
+    public SplitList<Integer> getSmallMoleculeFeatureIdRefs() {
+        return getSplitList(SmallMoleculeColumn.SMF_ID_REFS, Integer.class);
+    }
+    
+    public boolean addSmallMoleculeFeatureIdRef(Integer smfIdRef) {
+        if (smfIdRef == null) {
+            return false;
+        }
+
+        SplitList<Integer> identifierList = getSmallMoleculeFeatureIdRefs();
+        if (identifierList == null) {
+            identifierList = new SplitList<Integer>(BAR);
+            setSmallMoleculeFeatureIdRefs(identifierList);
+        }
+        return identifierList.add(smfIdRef);
+    }
+    
+    public void setSmallMoleculeFeatureIdRefs(SplitList<Integer> smfIdRefs) {
+        setValue(SmallMoleculeColumn.SMF_ID_REFS, smfIdRefs);
+    }
+    
+    public void setSmallMoleculeFeatureIdRefs(String smfIdRefsLabel) {
+        setIdentifier(parseStringList(BAR, smfIdRefsLabel));
+    }
 
     /**
      * A list of "|" separated possible identifiers for these small molecules. The database identifier
@@ -35,7 +69,7 @@ public class SmallMolecule extends MZTabRecord {
      * of the identifier format).
      */
     public SplitList<String> getIdentifier() {
-        return getSplitList(SmallMoleculeColumn.IDENTIFIER.getLogicPosition());
+        return getSplitList(SmallMoleculeColumn.IDENTIFIER, String.class);
     }
 
     /**
@@ -62,7 +96,7 @@ public class SmallMolecule extends MZTabRecord {
      * of the identifier format).
      */
     public void setIdentifier(SplitList<String> identifier) {
-        setValue(SmallMoleculeColumn.IDENTIFIER.getLogicPosition(), identifier);
+        setValue(SmallMoleculeColumn.IDENTIFIER, identifier);
     }
 
     /**
@@ -84,7 +118,7 @@ public class SmallMolecule extends MZTabRecord {
      * comparison of positive and negative mode results.
      */
     public String getChemicalFormula() {
-        return getString(SmallMoleculeColumn.CHEMICAL_FORMULA.getLogicPosition());
+        return getString(SmallMoleculeColumn.CHEMICAL_FORMULA);
     }
 
     /**
@@ -95,7 +129,7 @@ public class SmallMolecule extends MZTabRecord {
      * comparison of positive and negative mode results.
      */
     public void setChemicalFormula(String chemicalFormula) {
-        setValue(SmallMoleculeColumn.CHEMICAL_FORMULA.getLogicPosition(), parseString(chemicalFormula));
+        setValue(SmallMoleculeColumn.CHEMICAL_FORMULA, parseString(chemicalFormula));
     }
 
     /**
@@ -103,7 +137,7 @@ public class SmallMolecule extends MZTabRecord {
      * one SMILES for a given small molecule, use the  "|" separator.
      */
     public SplitList<String> getSmiles() {
-        return getSplitList(SmallMoleculeColumn.SMILES.getLogicPosition());
+        return getSplitList(SmallMoleculeColumn.SMILES, String.class);
     }
 
     /**
@@ -137,14 +171,26 @@ public class SmallMolecule extends MZTabRecord {
      * one SMILES for a given small molecule, use the  "|" separator.
      */
     public void setSmiles(SplitList<String> smiles) {
-        setValue(SmallMoleculeColumn.SMILES.getLogicPosition(), smiles);
+        setValue(SmallMoleculeColumn.SMILES, smiles);
     }
+    
+    /* TODO add / update the following columns for SmallMolecule
+    public static SmallMoleculeColumn INCHI = new SmallMoleculeColumn("inchi", SplitList.class, false, "06");
+    public static SmallMoleculeColumn THEORETICAL_NEUTRAL_MASS = new SmallMoleculeColumn("theoretical_neutral_mass", Double.class, true, "08");
+    public static SmallMoleculeColumn RETENTION_TIME = new SmallMoleculeColumn("retention_time", Double.class, true, "10");
+    public static SmallMoleculeColumn ADDUCT_IONS = new SmallMoleculeColumn("adduct_ions", SplitList.class, true, "11");
+    public static SmallMoleculeColumn RELIABILITY = new SmallMoleculeColumn("reliability", Reliability.class, false, "12");
+    public static SmallMoleculeColumn URI = new SmallMoleculeColumn("uri", java.net.URI.class, true, "13");
+    public static SmallMoleculeColumn BEST_SEARCH_ENGINE = new SmallMoleculeColumn("search_engine", CVParam.class, true, "14");
+    public static SmallMoleculeColumn BEST_SEARCH_ENGINE_SCORE = new SmallMoleculeColumn("best_search_engine_score", Double.class, true, "15");
+    */
+    
     /**
      * The standard IUPAC International Chemical Identifier (InChI) Key of the given substance. If there are more than
      * one InChI identifier for a given small molecule, use the  "|" separator.
      */
     public SplitList<String> getInchiKey() {
-        return getSplitList(SmallMoleculeColumn.INCHI_KEY.getLogicPosition());
+        return getSplitList(SmallMoleculeColumn.INCHI, String.class);
     }
 
     /**
@@ -169,7 +215,7 @@ public class SmallMolecule extends MZTabRecord {
      * one InChI identifier for a given small molecule, use the  "|" separator.
      */
     public void setInchiKey(String inchiKeyLabel) {
-        setValue(SmallMoleculeColumn.INCHI_KEY.getLogicPosition(), parseStringList(BAR, inchiKeyLabel));
+        setValue(SmallMoleculeColumn.INCHI, parseStringList(BAR, inchiKeyLabel));
     }
 
     /**
@@ -177,35 +223,35 @@ public class SmallMolecule extends MZTabRecord {
      * one InChI identifier for a given small molecule, use the  "|" separator.
      */
     public void setInchiKey(SplitList<String> inchiKey) {
-        setValue(SmallMoleculeColumn.INCHI_KEY.getLogicPosition(), inchiKey);
+        setValue(SmallMoleculeColumn.INCHI, inchiKey);
     }
 
     /**
      * The small molecule's description / name.
      */
     public String getDescription() {
-        return getString(SmallMoleculeColumn.DESCRIPTION.getLogicPosition());
+        return getString(SmallMoleculeColumn.DESCRIPTION);
     }
 
     /**
      * The small molecule's description / name.
      */
     public void setDescription(String description) {
-        setValue(SmallMoleculeColumn.DESCRIPTION.getLogicPosition(), parseString(description));
+        setValue(SmallMoleculeColumn.DESCRIPTION, parseString(description));
     }
 
     /**
      * The small molecule's experimental mass to charge (m/z).
      */
     public Double getExpMassToCharge() {
-        return getDouble(SmallMoleculeColumn.EXP_MASS_TO_CHARGE.getLogicPosition());
+        return getDouble(SmallMoleculeColumn.EXP_MASS_TO_CHARGE);
     }
 
     /**
      * The small molecule's experimental mass to charge (m/z).
      */
     public void setExpMassToCharge(Double expMassToCharge) {
-        setValue(SmallMoleculeColumn.EXP_MASS_TO_CHARGE.getLogicPosition(), expMassToCharge);
+        setValue(SmallMoleculeColumn.EXP_MASS_TO_CHARGE, expMassToCharge);
     }
 
     /**
@@ -218,59 +264,13 @@ public class SmallMolecule extends MZTabRecord {
     }
 
     /**
-     * The small molecule's precursor's calculated (theoretical) mass to charge ratio.
-     */
-    public Double getCalcMassToCharge() {
-        return getDouble(SmallMoleculeColumn.CALC_MASS_TO_CHARGE.getLogicPosition());
-    }
-
-    /**
-     * The small molecule's precursor's calculated (theoretical) mass to charge ratio.
-     */
-    public void setCalcMassToCharge(Double calcMassToCharge) {
-        setValue(SmallMoleculeColumn.CALC_MASS_TO_CHARGE.getLogicPosition(), calcMassToCharge);
-    }
-
-    /**
-     * The small molecule's precursor's calculated (theoretical) mass to charge ratio.
-     *
-     * @param calcMassToChargeLabel parsed by {@link MZTabUtils#parseDouble(String)}
-     */
-    public void setCalcMassToCharge(String calcMassToChargeLabel) {
-        setCalcMassToCharge(parseDouble(calcMassToChargeLabel));
-    }
-
-    /**
-     * The charge assigned by the search engine/software.
-     */
-    public Integer getCharge() {
-        return getInteger(SmallMoleculeColumn.CHARGE.getLogicPosition());
-    }
-
-    /**
-     * The charge assigned by the search engine/software.
-     */
-    public void setCharge(Integer charge) {
-        setValue(SmallMoleculeColumn.CHARGE.getLogicPosition(), charge);
-    }
-
-    /**
-     * The charge assigned by the search engine/software.
-     *
-     * @param chargeLabel parsed by {@link MZTabUtils#parseInteger(String)}
-     */
-    public void setCharge(String chargeLabel) {
-        setCharge(parseInteger(chargeLabel));
-    }
-
-    /**
      * A '|'-separated list of time points. Semantics may vary. This time should refer to the small molecule's
      * retention time if determined or the mid point between the first and last spectrum identifying the small molecule.
      * It MUST be reported in seconds. Otherwise, the corresponding unit MUST be specified in the Metadata Section
      * ('columnit_smallmolecule').
      */
     public SplitList<Double> getRetentionTime() {
-        return getSplitList(SmallMoleculeColumn.RETENTION_TIME.getLogicPosition());
+        return getSplitList(SmallMoleculeColumn.RETENTION_TIME, Double.class);
     }
 
     /**
@@ -312,7 +312,7 @@ public class SmallMolecule extends MZTabRecord {
      * ('columnit_smallmolecule').
      */
     public void setRetentionTime(SplitList<Double> retentionTime) {
-        setValue(SmallMoleculeColumn.RETENTION_TIME.getLogicPosition(), retentionTime);
+        setValue(SmallMoleculeColumn.RETENTION_TIME, retentionTime);
     }
 
     /**
@@ -328,75 +328,6 @@ public class SmallMolecule extends MZTabRecord {
     }
 
     /**
-     * The taxonomy id coming from the NEWT taxonomy for the species (if applicable).
-     */
-    public Integer getTaxid() {
-        return getInteger(SmallMoleculeColumn.TAXID.getLogicPosition());
-    }
-
-    /**
-     * The taxonomy id coming from the NEWT taxonomy for the species (if applicable).
-     */
-    public void setTaxid(Integer taxid) {
-        setValue(SmallMoleculeColumn.TAXID.getLogicPosition(), taxid);
-    }
-
-    /**
-     * The taxonomy id coming from the NEWT taxonomy for the species (if applicable).
-     *
-     * @param taxidLabel parsed by {@link MZTabUtils#parseInteger(String)}
-     */
-    public void setTaxid(String taxidLabel) {
-        setTaxid(parseInteger(taxidLabel));
-    }
-
-    /**
-     * The species as a human readable string (if applicable).
-     */
-    public String getSpecies() {
-        return getString(SmallMoleculeColumn.SPECIES.getLogicPosition());
-    }
-
-    /**
-     * The species as a human readable string (if applicable).
-     */
-    public void setSpecies(String species) {
-        setValue(SmallMoleculeColumn.SPECIES.getLogicPosition(), parseString(species));
-    }
-
-    /**
-     * Generally references the used spectral library (if applicable).
-     */
-    public String getDatabase() {
-        return getString(SmallMoleculeColumn.DATABASE.getLogicPosition());
-    }
-
-    /**
-     * Generally references the used spectral library (if applicable).
-     */
-    public void setDatabase(String database) {
-        setValue(SmallMoleculeColumn.DATABASE.getLogicPosition(), parseString(database));
-    }
-
-    /**
-     * Either the version of the used database if available or otherwise the date of creation.
-     * Additionally, the number of entries in the database MAY be reported in round brackets after
-     * the version in the format: {version} ({#entries} entries), for example "2011-11 (1234 entries)".
-     */
-    public String getDatabaseVersion() {
-        return getString(SmallMoleculeColumn.DATABASE_VERSION.getLogicPosition());
-    }
-
-    /**
-     * Either the version of the used database if available or otherwise the date of creation.
-     * Additionally, the number of entries in the database MAY be reported in round brackets after
-     * the version in the format: {version} ({#entries} entries), for example "2011-11 (1234 entries)".
-     */
-    public void setDatabaseVersion(String databaseVersion) {
-        setValue(SmallMoleculeColumn.DATABASE_VERSION.getLogicPosition(), parseString(databaseVersion));
-    }
-
-    /**
      * The reliability of the given small molecule identification. This must be supplied by the resource
      * and has to be one of the following values:
      * <ol>
@@ -406,7 +337,7 @@ public class SmallMolecule extends MZTabRecord {
      * </ol>
      */
     public Reliability getReliability() {
-        return getReliability(SmallMoleculeColumn.RELIABILITY.getLogicPosition());
+        return getReliability(SmallMoleculeColumn.RELIABILITY);
     }
 
     /**
@@ -421,7 +352,7 @@ public class SmallMolecule extends MZTabRecord {
      * @see Reliability
      */
     public void setReliability(Reliability reliability) {
-        setValue(SmallMoleculeColumn.RELIABILITY.getLogicPosition(), reliability);
+        setValue(SmallMoleculeColumn.RELIABILITY, reliability);
     }
 
     /**
@@ -446,7 +377,7 @@ public class SmallMolecule extends MZTabRecord {
      * the small molecule's PRIDE entry).
      */
     public URI getURI() {
-        return getURI(SmallMoleculeColumn.URI.getLogicPosition());
+        return getURI(SmallMoleculeColumn.URI);
     }
 
     /**
@@ -454,7 +385,7 @@ public class SmallMolecule extends MZTabRecord {
      * the small molecule's PRIDE entry).
      */
     public void setURI(URI uri) {
-        setValue(SmallMoleculeColumn.URI.getLogicPosition(), uri);
+        setValue(SmallMoleculeColumn.URI, uri);
     }
 
     /**
@@ -465,118 +396,6 @@ public class SmallMolecule extends MZTabRecord {
      */
     public void setURI(String uriLabel) {
         setURI(parseURI(uriLabel));
-    }
-
-    /**
-     * Reference to spectra in a spectrum file. It is expected that spectra_ref SHOULD only be used for MS2-based
-     * quantification approaches, in which retention time values cannot identify the spectra used for quantification.
-     * The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2.
-     * Multiple spectra MUST be referenced using a "|" delimited list.
-     */
-    public SplitList<SpectraRef> getSpectraRef() {
-        return getSplitList(SmallMoleculeColumn.SPECTRA_REF.getLogicPosition());
-    }
-
-    /**
-     * Reference to spectra in a spectrum file. It is expected that spectra_ref SHOULD only be used for MS2-based
-     * quantification approaches, in which retention time values cannot identify the spectra used for quantification.
-     * The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2.
-     * Multiple spectra MUST be referenced using a "|" delimited list.
-     *
-     * @see SpectraRef
-     */
-    public boolean addSpectraRef(SpectraRef specRef) {
-        if (specRef == null) {
-            return false;
-        }
-
-        SplitList<SpectraRef> specRefs = getSpectraRef();
-        if (specRefs == null) {
-            specRefs = new SplitList<SpectraRef>(BAR);
-            setSpectraRef(specRefs);
-        }
-
-        return specRefs.add(specRef);
-    }
-
-    /**
-     * Reference to spectra in a spectrum file. It is expected that spectra_ref SHOULD only be used for MS2-based
-     * quantification approaches, in which retention time values cannot identify the spectra used for quantification.
-     * The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2.
-     * Multiple spectra MUST be referenced using a "|" delimited list.
-     *
-     * @see SpectraRef
-     */
-    public void setSpectraRef(SplitList<SpectraRef> spectraRef) {
-        setValue(SmallMoleculeColumn.SPECTRA_REF.getLogicPosition(), spectraRef);
-    }
-
-    /**
-     * Reference to spectra in a spectrum file. It is expected that spectra_ref SHOULD only be used for MS2-based
-     * quantification approaches, in which retention time values cannot identify the spectra used for quantification.
-     * The reference must be in the format ms_run[1-n]:{SPECTRA_REF} where SPECTRA_REF MUST follow the format defined in 5.2.
-     * Multiple spectra MUST be referenced using a "|" delimited list.
-     *
-     * @param spectraRefLabel parsed by {@link MZTabUtils#parseSpectraRefList(Metadata, String)}
-     *
-     * @see SpectraRef
-     */
-    public void setSpectraRef(String spectraRefLabel) {
-        setSpectraRef(parseSpectraRefList(metadata, spectraRefLabel));
-    }
-
-    /**
-     * A "|" delimited list of search engine(s) used to identify this small molecule. Search engines must be supplied
-     * as parameters.
-     */
-    public SplitList<Param> getSearchEngine() {
-        return getSplitList(SmallMoleculeColumn.SEARCH_ENGINE.getLogicPosition());
-    }
-
-    /**
-     * Add a search engine used to identify this small molecule. Search engines must be supplied
-     * as parameters.
-     */
-    public boolean addSearchEngineParam(Param param) {
-        if (param == null) {
-            return false;
-        }
-
-        SplitList<Param> params = getSearchEngine();
-        if (params == null) {
-            params = new SplitList<Param>(BAR);
-            setSearchEngine(params);
-        }
-
-        return params.add(param);
-    }
-
-    /**
-     * Add a search engine used to identify this small molecule. Search engines must be supplied
-     * as parameters.
-     *
-     * @param paramLabel parsed by {@link MZTabUtils#parseParam(String)}
-     */
-    public boolean addSearchEngineParam(String paramLabel) {
-        return !isEmpty(paramLabel) && addSearchEngineParam(parseParam(paramLabel));
-    }
-
-    /**
-     * A "|" delimited list of search engine(s) used to identify this small molecule. Search engines must be supplied
-     * as parameters.
-     */
-    public void setSearchEngine(SplitList<Param> searchEngine) {
-        setValue(SmallMoleculeColumn.SEARCH_ENGINE.getLogicPosition(), searchEngine);
-    }
-
-    /**
-     * A "|" delimited list of search engine(s) used to identify this small molecule. Search engines must be supplied
-     * as parameters.
-     *
-     * @param searchEngineLabel parsed by {@link MZTabUtils#parseParamList(String)}
-     */
-    public void setSearchEngine(String searchEngineLabel) {
-        setSearchEngine(parseParamList(searchEngineLabel));
     }
 
     /**
@@ -611,96 +430,6 @@ public class SmallMolecule extends MZTabRecord {
      */
     public void setBestSearchEngineScore(Integer id, String searchEngineScoreLabel) {
         setBestSearchEngineScore(id, parseDouble(searchEngineScoreLabel));
-    }
-
-
-    /**
-     * The search engine score for the given protein in the defined ms run. The type of score
-     * MUST be defined in the metadata section. If the protein was not identified by the specified
-     * search engine “null” must be reported
-     *
-     * @param id search_engine_score[id] which MUST be defined in the metadata section.
-     * @param msRun SHOULD NOT set null
-     * @return search engine score
-     */
-    public Double getSearchEngineScore(Integer id, MsRun msRun) {
-        return getDouble(getLogicalPosition(SmallMoleculeColumn.SEARCH_ENGINE_SCORE, id, msRun));
-    }
-
-    /**
-     * The search engine score for the given protein in the defined ms run. The type of score
-     * MUST be defined in the metadata section. If the protein was not identified by the specified
-     * search engine “null” must be reported
-     *
-     * @param id search_engine_score[id] which MUST be defined in the metadata section.
-     * @param msRun SHOULD NOT set null
-     */
-    public void setSearchEngineScore(Integer id, MsRun msRun, Double searchEngineScore) {
-        setValue(getLogicalPosition(SmallMoleculeColumn.SEARCH_ENGINE_SCORE, id, msRun), searchEngineScore);
-    }
-
-    /**
-     * The search engine score for the given protein in the defined ms run. The type of score
-     * MUST be defined in the metadata section. If the protein was not identified by the specified
-     * search engine “null” must be reported
-     *
-     * @param id search_engine_score[id] which MUST be defined in the metadata section.
-     * @param msRun SHOULD NOT set null
-     */
-    public void setSearchEngineScore(Integer id, MsRun msRun, String paramsLabel) {
-        setSearchEngineScore(id, msRun, parseDouble(paramsLabel));
-    }
-
-    /**
-     * The small molecule's modifications or adducts. The position of the modification must be given relative to
-     * the small molecule's beginning. The exact semantics of this position depends on the type of small molecule identified.
-     * In case the position information is unknown or not applicable it should not be supplied. For detailed information see
-     * protein table.
-     */
-    public SplitList<Modification> getModifications() {
-        return getSplitList(SmallMoleculeColumn.MODIFICATIONS.getLogicPosition());
-    }
-
-    /**
-     * The small molecule's modifications or adducts. The position of the modification must be given relative to
-     * the small molecule's beginning. The exact semantics of this position depends on the type of small molecule identified.
-     * In case the position information is unknown or not applicable it should not be supplied. For detailed information see
-     * protein table.
-     */
-    public boolean addModification(Modification modification) {
-        if (modification == null) {
-            return false;
-        }
-
-        SplitList<Modification> modList = getModifications();
-        if (modList == null) {
-            modList = new SplitList<Modification>(COMMA);
-            setModifications(modList);
-        }
-
-        return modList.add(modification);
-    }
-
-    /**
-     * The small molecule's modifications or adducts. The position of the modification must be given relative to
-     * the small molecule's beginning. The exact semantics of this position depends on the type of small molecule identified.
-     * In case the position information is unknown or not applicable it should not be supplied. For detailed information see
-     * protein table.
-     */
-    public void setModifications(SplitList<Modification> modifications) {
-        setValue(SmallMoleculeColumn.MODIFICATIONS.getLogicPosition(), modifications);
-    }
-
-    /**
-     * The small molecule's modifications or adducts. The position of the modification must be given relative to
-     * the small molecule's beginning. The exact semantics of this position depends on the type of small molecule identified.
-     * In case the position information is unknown or not applicable it should not be supplied. For detailed information see
-     * protein table.
-     *
-     * @param modificationsLabel parsed by {@link MZTabUtils#parseModificationList(Section, String)}
-     */
-    public void setModifications(String modificationsLabel) {
-        setModifications(parseModificationList(Section.Small_Molecule, modificationsLabel));
     }
 
     /**

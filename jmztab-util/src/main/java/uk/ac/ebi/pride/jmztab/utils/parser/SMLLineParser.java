@@ -50,7 +50,7 @@ public class SMLLineParser extends MZTabDataLineParser {
                         smallMolecule.setChemicalFormula(checkChemicalFormula(column, target));
                     } else if (columnName.equals(SMILES.getName())) {
                         smallMolecule.setSmiles(checkSmiles(column, target));
-                    } else if (columnName.equals(INCHI_KEY.getName())) {
+                    } else if (columnName.equals(INCHI.getName())) {
                         smallMolecule.setInchiKey(checkInchiKey(column, target));
                     } else if (columnName.equals(DESCRIPTION.getName())) {
                         smallMolecule.setDescription(checkDescription(column, target));

@@ -18,6 +18,8 @@ import static uk.ac.ebi.pride.jmztab.model.MZTabUtils.parseDouble;
  * @see Peptide
  * @see PSM
  * @see SmallMolecule
+ * @see SmallMoleculeFeature
+ * @See SmallMoleculeEvidence
  *
  * @author qingwei
  * @since 23/05/13
@@ -78,6 +80,18 @@ public abstract class MZTabRecord {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Set a value to a special logical position cell. Before set value, system will do a match
+     * validate by calling {@link #isMatch(String, Class)}. If not match, system not do set operation
+     * and return false value.
+     *
+     * @param column locate the column data type definition in {@link MZTabColumnFactory}
+     * @param value SHOULD NOT set null.
+     */
+    public boolean setValue(MZTabColumn column, Object value) {
+        return setValue(column.getLogicPosition(), value);
     }
 
     /**
@@ -161,6 +175,13 @@ public abstract class MZTabRecord {
 
         return val;
     }
+    
+    /**
+     * Get cell value of column and convert it to String. If can not convert, return null.
+     */
+    protected String getString(MZTabColumn column) {
+        return getString(column.getLogicPosition());
+    }
 
     /**
      * Get cell value and convert it to Integer. If can not convert, return null.
@@ -171,6 +192,13 @@ public abstract class MZTabRecord {
         }
 
         return (Integer) record.get(logicalPosition);
+    }
+    
+    /**
+     * Get cell value of column and convert it to Integer. If can not convert, return null.
+     */
+    protected Integer getInteger(MZTabColumn column) {
+        return getInteger(column.getLogicPosition());
     }
 
     /**
@@ -183,16 +211,30 @@ public abstract class MZTabRecord {
 
         return (Double) record.get(logicalPosition);
     }
+    
+    /**
+     * Get cell value of column and convert it to Double. If can not convert, return null.
+     */
+    protected Double getDouble(MZTabColumn column) {
+        return getDouble(column.getLogicPosition());
+    }
 
     /**
      * Get cell value and convert it to {@link SplitList} object. If can not convert, return null.
      */
-    protected SplitList getSplitList(String logicalPosition) {
+    protected <T> SplitList<T> getSplitList(String logicalPosition, Class<? extends T> contentType) {
         if (! isMatch(logicalPosition, SplitList.class)) {
             return null;
         }
 
-        return (SplitList) record.get(logicalPosition);
+        return (SplitList<T>) record.get(logicalPosition);
+    }
+    
+    /**
+     * Get cell value of column and convert it to {@link SplitList} object. If can not convert, return null.
+     */
+    protected <T> SplitList<T> getSplitList(MZTabColumn column, Class<? extends T> contentType) {
+        return getSplitList(column.getLogicPosition(), contentType);
     }
 
     /**
@@ -205,6 +247,13 @@ public abstract class MZTabRecord {
 
         return (URI) record.get(logicalPosition);
     }
+    
+    /**
+     * Get cell value of column and convert it to {@link URI}. If can not convert, return null.
+     */
+    protected URI getURI(MZTabColumn column) {
+        return getURI(column.getLogicPosition());
+    }
 
     /**
      * Get cell value and convert it to {@link Reliability}. If can not convert, return null.
@@ -216,6 +265,13 @@ public abstract class MZTabRecord {
 
         return (Reliability) record.get(logicalPosition);
     }
+    
+    /**
+     * Get cell value of column and convert it to {@link Reliability}. If can not convert, return null.
+     */
+    protected Reliability getReliability(MZTabColumn column) {
+        return getReliability(column.getLogicPosition());
+    }
 
     /**
      * Get cell value and convert it to {@link MZBoolean}. If can not convert, return null.
@@ -226,6 +282,13 @@ public abstract class MZTabRecord {
         }
 
         return (MZBoolean) record.get(logicalPosition);
+    }
+    
+    /**
+     * Get cell value of column and convert it to {@link MZBoolean}. If can not convert, return null.
+     */
+    protected MZBoolean getMZBoolean(MZTabColumn column) {
+        return getMZBoolean(column.getLogicPosition());
     }
 
     /**

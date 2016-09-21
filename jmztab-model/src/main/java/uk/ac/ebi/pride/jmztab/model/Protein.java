@@ -136,7 +136,7 @@ public class Protein extends MZTabRecord {
      * A "|" delimited list of search engine(s) used to identify this protein. Search engines MUST be supplied as parameters.
      */
     public SplitList<Param> getSearchEngine() {
-        return getSplitList(ProteinColumn.SEARCH_ENGINE.getLogicPosition());
+        return getSplitList(ProteinColumn.SEARCH_ENGINE.getLogicPosition(), Param.class);
     }
 
     /**
@@ -446,7 +446,7 @@ public class Protein extends MZTabRecord {
      * that cannot be separated based on the peptide evidence.
      */
     public SplitList<String> getAmbiguityMembers() {
-        return getSplitList(ProteinColumn.AMBIGUITY_MEMBERS.getLogicPosition());
+        return getSplitList(ProteinColumn.AMBIGUITY_MEMBERS.getLogicPosition(), String.class);
     }
 
     /**
@@ -508,7 +508,7 @@ public class Protein extends MZTabRecord {
      * reported but not present on a given protein, a "0" MUST be reported.
      */
     public SplitList<Modification> getModifications() {
-        return getSplitList(ProteinColumn.MODIFICATIONS.getLogicPosition());
+        return getSplitList(ProteinColumn.MODIFICATIONS.getLogicPosition(), Modification.class);
     }
 
     /**
@@ -595,7 +595,7 @@ public class Protein extends MZTabRecord {
      * A '|'-delimited list of GO accessions for this protein.
      */
     public SplitList<String> getGOTerms() {
-        return getSplitList(ProteinColumn.GO_TERMS.getLogicPosition());
+        return getSplitList(ProteinColumn.GO_TERMS.getLogicPosition(), String.class);
     }
 
     /**
