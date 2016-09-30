@@ -174,8 +174,8 @@ public class MZTabCommandLine {
                 " -h,--help                                  print help message\n" +
                 " -message code=<code>                       print Error/Warn detail message based on code\n" +
                 "                                            number.\n" +
-                " -outFile <arg>                             Record error/warn messages into outfile. If\n" +
-                "                                            not set, print message on the screen.");
+                " -outFile <arg>                             Dump output data to the given file. If\n" +
+                "                                            not set, output data will be dumped on stdout");
     }
 
 }
