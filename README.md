@@ -40,7 +40,7 @@ usage: jmztab
  -convert inFile=<inFile format=<format>   Converts the given format file (PRIDE or mzIdentML) to an mztab file.
  -h,--help                   print help message
  -message code=<code>             print Error/Warn detail message based on code number.
- -outFile <arg>              Record error/warn messages into outfile. If not set, print message on the screen.
+ -outFile <arg>              Dump output data to the given file. If not set, output data will be dumped on stdout.
 ```
 
 More information about the tools can be found in the [Wiki](https://github.com/PRIDE-Utilities/jmzTab/wiki/jmzTab-Utilities)
@@ -57,7 +57,7 @@ For parsing and writing mzTab
 
 ```
 <properties>
-    <jmztab.version>3.0.2</jmztab.version>
+    <jmztab.version>3.0.4</jmztab.version>
 </properties>
 
 <dependency>
@@ -78,7 +78,7 @@ For converting to mzTab
 
 ```
 <properties>
-    <jmztab.version>3.0.2</jmztab.version>
+    <jmztab.version>3.0.4</jmztab.version>
 </properties>
 
 <dependency>
@@ -94,8 +94,8 @@ The jmzTab library can currently only be found in the [EBI](http://www.ebi.ac.uk
 ```
 <repository>
     <id>nexus-ebi-repo</id>
-    <name>The EBI internal repository</name>
-    <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
+    <name>EBI Nexus Repository (Release)</name>
+    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release/</url>
     <releases/>
     <snapshots>
         <enabled>false</enabled>
@@ -105,6 +105,8 @@ The jmzTab library can currently only be found in the [EBI](http://www.ebi.ac.uk
 
 
 ## News
+**jmzTab version 3.0.4 - (18. October 2016)**
+  * general refinements and bug fixing
 
 **jmzTab version 3.0.2 - (12. Febreruary 2015)**
   * general refinements and bug fixing
