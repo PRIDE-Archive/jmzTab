@@ -1,19 +1,21 @@
 package uk.ac.ebi.pride.jmztab.model;
 
+import java.net.URI;
 
 import static uk.ac.ebi.pride.jmztab.model.MZTabConstants.*;
+import static uk.ac.ebi.pride.jmztab.model.MZTabUtils.*;
 
 /**
- * The small molecule feature section is table-based. The small molecule feature section MUST always come after the small molecule section,
+ * The small molecule evidence section is table-based. The small molecule evidence section MUST always come after the small molecule section,
  * peptide section and or protein section if they are present in the file. All table columns MUST be Tab separated.
  * There MUST NOT be any empty cells. Missing values MUST be reported using "null". Most columns are mandatory.
  * The order of columns is not specified although for ease of human interpretation, it is RECOMMENDED to follow the
  * order specified below.
  *
  * @author nilshoffmann
- * @since 19/09/16
+ * @since 09/11/16
  */
-public class SmallMoleculeFeature extends MZTabRecord {
+public class SmallMoleculeEvidence extends MZTabRecord {
     private Metadata metadata;
 
     /**
@@ -22,7 +24,7 @@ public class SmallMoleculeFeature extends MZTabRecord {
      * @param factory SHOULD NOT set null.
      * @param metadata SHOULD NOT set null.
      */
-    public SmallMoleculeFeature(MZTabColumnFactory factory, Metadata metadata) {
+    public SmallMoleculeEvidence(MZTabColumnFactory factory, Metadata metadata) {
         super(factory);
         this.metadata = metadata;
     }

@@ -7,7 +7,7 @@ package uk.ac.ebi.pride.jmztab.model;
  * @author qingwei
  * @since 28/05/13
  */
-public class OptionColumn extends MZTabColumn {
+public class OptionColumn<T> extends MZTabColumn<T> {
     public static final String OPT = "opt";
     public static final String GLOBAL = "global";
 
@@ -43,7 +43,7 @@ public class OptionColumn extends MZTabColumn {
      * @param columnType SHOULD NOT be empty.
      * @param offset SHOULD be positive integer.
      */
-    public OptionColumn(IndexedElement element, String value, Class columnType, int offset) {
+    public OptionColumn(IndexedElement element, String value, Class<T> columnType, int offset) {
         super(getHeader(element, value), columnType, true, offset + 1 + "");
     }
 }

@@ -44,7 +44,7 @@ public class SMLLineParser extends MZTabDataLineParser {
                 target = items[physicalPosition];
                 if (column instanceof SmallMoleculeColumn) {
 
-                    if (columnName.equals(IDENTIFIER.getName())) {
+                    if (columnName.equals(DATABASE_IDENTIFIER.getName())) {
                         smallMolecule.setIdentifier(checkIdentifier(column, target));
                     } else if (columnName.equals(CHEMICAL_FORMULA.getName())) {
                         smallMolecule.setChemicalFormula(checkChemicalFormula(column, target));
