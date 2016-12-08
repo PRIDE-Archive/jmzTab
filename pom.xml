@@ -4,7 +4,7 @@
     <groupId>uk.ac.ebi.pride</groupId>
     <artifactId>jmztab-modular</artifactId>
     <!-- based on mzTab specification version 1.0 -->
-    <version>3.0.5-SNAPSHOT</version>
+    <version>3.0.5</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -362,7 +362,7 @@
         <connection>scm:git:github.com/PRIDE-Utilities/jmzTab.git</connection>
         <developerConnection>scm:git:git@github.com:PRIDE-Utilities/jmzTab.git</developerConnection>
         <url>https://github.com/PRIDE-Utilities/jmzTab.git</url>
-        <tag>HEAD</tag>
+        <tag>jmztab-modular-3.0.5</tag>
     </scm>
 
 </project>
