@@ -360,7 +360,7 @@
     <!--scm git config-->
     <scm>
         <connection>scm:git:https://github.com/PRIDE-Utilities/jmzTab.git</connection>
-        <developerConnection>scm:git:https://github.comPRIDE-Utilities/jmzTab.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/PRIDE-Utilities/jmzTab.git</developerConnection>
         <url>https://github.com/PRIDE-Utilities/jmzTab.git</url>
         <tag>HEAD</tag>
     </scm>
