@@ -10,18 +10,10 @@
     <artifactId>jmztab-modular-cli</artifactId>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <commons-cli.version>1.2</commons-cli.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>uk.ac.ebi.pride.architectural</groupId>
-            <artifactId>pride-tdd</artifactId>
-            <type>pom</type>
-            <version>${uk.ac.ebi.pride.architectural-pride-tdd.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jmztab-modular-model</artifactId>
