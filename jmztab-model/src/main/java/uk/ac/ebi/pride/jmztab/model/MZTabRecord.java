@@ -535,12 +535,27 @@ public abstract class MZTabRecord {
     }
 
     /**
-     * Get value from opt_global_name column cell.
+     * Get value from opt_global_name column cell. The current method only
+     * retrieve the values that are String. The others values like Boolean or SplitList are
+     * not retrieve.
      */
     public String getOptionColumnValue(String name) {
         String header = OptionColumn.getHeader(null, name);
         MZTabColumn column = factory.findColumnByHeader(header);
         return column == null ? null : getString(column.getLogicPosition());
+    }
+
+    /**
+     * Get any type of OptionColumn as String representation. It retrieve Any option
+     * Column as String. For example for MzBoolean 1, 0 it returns the the String representation.
+     * @param name of the optional Column
+     * @return value in String representation.
+     */
+    public String getOptionColumnValueAsString(String name){
+        String header = OptionColumn.getHeader(null, name);
+        MZTabColumn column = factory.findColumnByHeader(header);
+        return column == null ? null : getValue(column.getLogicPosition()).toString();
+
     }
 
     /**
