@@ -472,18 +472,41 @@ public class MZTabUtils {
     public static String translateMinusToUnicode(String target) {
         Pattern pattern = Pattern.compile("(CHEMMOD:.*)(-)(.*)");
         Matcher matcher = pattern.matcher(target);
+        StringBuilder sb = new StringBuilder();
         if (matcher.find()) {
-            StringBuilder sb = new StringBuilder();
-
             sb.append(matcher.group(1));
             sb.append("&minus;");
             sb.append(matcher.group(3));
 
-            return sb.toString();
         } else {
-            return target;
+            sb.append(target);
         }
+        return sb.toString();
     }
+
+    public static String translateMinusInCVtoUnicode(String target){
+        Pattern pattern = Pattern.compile("\\[([^\\[\\]]+)\\]");
+        Matcher matcher = pattern.matcher(target);
+
+        StringBuilder sb = new StringBuilder();
+
+        int start = 0;
+        int end;
+        while (matcher.find()) {
+            end = matcher.start(1);
+            sb.append(target.substring(start, end));
+            sb.append(matcher.group(1).replaceAll("-", "&minus;"));
+            start = matcher.end(1);
+        }
+        sb.append(target.substring(start, target.length()));
+
+        return sb.toString();
+    }
+
+    public static String translateUnicodeCVTermMinus(String target){
+        return target.replaceAll("&minus;", "-");
+    }
+
 
     /**
      *  Solve the conflict about minus char between modification position and CHEMMOD charge.
@@ -520,6 +543,7 @@ public class MZTabUtils {
         }
 
         target = translateMinusToUnicode(target);
+        target = translateMinusInCVtoUnicode(target);
         if (target == null) {
             return null;
         }
@@ -546,6 +570,7 @@ public class MZTabUtils {
         CVParam neutralLoss;
 
         modLabel = translateUnicodeToMinus(modLabel);
+        modLabel = translateUnicodeCVTermMinus(modLabel);
         modLabel = translateTabToMinus(modLabel);
         Pattern pattern = Pattern.compile("(MOD|UNIMOD|CHEMMOD|SUBST):([^\\|]+)(\\|\\[([^,]+)?,([^,]+)?,([^,]+),([^,]*)\\])?");
         Matcher matcher = pattern.matcher(modLabel);
@@ -554,6 +579,7 @@ public class MZTabUtils {
             accession = matcher.group(2);
             modification = new Modification(section, type, accession);
             if (positionLabel != null) {
+                positionLabel =  translateUnicodeCVTermMinus(positionLabel);
                 parseModificationPosition(positionLabel, modification);
             }
 
@@ -631,6 +657,38 @@ public class MZTabUtils {
             end = matcher.start(1);
             sb.append(target.substring(start, end));
             sb.append(matcher.group(1).replaceAll("-", "\t"));
+            start = matcher.end(1);
+        }
+        sb.append(target.substring(start, target.length()));
+
+        return sb.toString();
+
+    }
+
+
+    private static String replaceLast(String string, String toReplace, String replacement){
+        int pos = string.lastIndexOf(toReplace);
+        if (pos > -1) {
+            return string.substring(0, pos)
+                    + replacement
+                    + string.substring(pos + toReplace.length(), string.length());
+        }
+        return string;
+    }
+
+
+    public static String translateLastToTab(String target){
+        Pattern pattern = Pattern.compile("\\[([^\\[\\]]+)\\]");
+        Matcher matcher = pattern.matcher(target);
+
+        StringBuilder sb = new StringBuilder();
+
+        int start = 0;
+        int end;
+        while (matcher.find()) {
+            end = matcher.start(1);
+            sb.append(target.substring(start, end));
+            sb.append(replaceLast(matcher.group(1),"-", "\t"));
             start = matcher.end(1);
         }
         sb.append(target.substring(start, target.length()));
