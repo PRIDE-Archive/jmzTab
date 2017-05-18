@@ -92,8 +92,7 @@ public class Software extends IndexedElement {
 
         Software software = (Software) o;
 
-        if (!param.equals(software.param)) return false;
-        return settingList != null ? settingList.equals(software.settingList) : software.settingList == null;
+        return param.equals(software.param) && (settingList != null ? settingList.equals(software.settingList) : software.settingList == null);
     }
 
     @Override

@@ -349,9 +349,7 @@ public enum QuantitationCVParam {
             return true;
         if (ITRAQ_118_REAGENT.getAccession().equals(accession))
             return true;
-        if (ITRAQ_119_REAGENT.getAccession().equals(accession))
-            return true;
-        return ITRAQ_121_REAGENT.getAccession().equals(accession);
+        return ITRAQ_119_REAGENT.getAccession().equals(accession) || ITRAQ_121_REAGENT.getAccession().equals(accession);
 
     }
 
@@ -370,9 +368,7 @@ public enum QuantitationCVParam {
             return true;
         if (ITRAQ_QUANTIFIED.getAccession().equals(accession))
             return true;
-        if (EMPAI_QUANTIFIED.getAccession().equals(accession))
-            return true;
-        return TIC_QUANTIFIED.getAccession().equals(accession);
+        return EMPAI_QUANTIFIED.getAccession().equals(accession) || TIC_QUANTIFIED.getAccession().equals(accession);
 
     }
 
@@ -396,9 +392,7 @@ public enum QuantitationCVParam {
         if (ITRAQ_QUANTIFIED.getAccession().equals(accession))
             return true;
         // only the emPAI can't be reported for peptides
-        if (EMPAI_QUANTIFIED.getAccession().equals(accession))
-            return false;
-        return TIC_QUANTIFIED.getAccession().equals(accession);
+        return !EMPAI_QUANTIFIED.getAccession().equals(accession) && TIC_QUANTIFIED.getAccession().equals(accession);
 
     }
 

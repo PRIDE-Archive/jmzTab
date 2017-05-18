@@ -88,8 +88,7 @@ public class Param {
 
         if (accession != null ? !accession.equalsIgnoreCase(param.accession) : param.accession != null) return false;
         if (cvLabel != null ? !cvLabel.equalsIgnoreCase(param.cvLabel) : param.cvLabel != null) return false;
-        if (name != null ? !name.equalsIgnoreCase(param.name) : param.name != null) return false;
-        return value != null ? value.equalsIgnoreCase(param.value) : param.value == null;
+        return (name != null ? name.equalsIgnoreCase(param.name) : param.name == null) && (value != null ? value.equalsIgnoreCase(param.value) : param.value == null);
     }
 
     @Override

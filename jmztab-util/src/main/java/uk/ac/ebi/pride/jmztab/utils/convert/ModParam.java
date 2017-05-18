@@ -1,7 +1,5 @@
 package uk.ac.ebi.pride.jmztab.utils.convert;
 
-import uk.ac.ebi.pride.jmztab.model.Mod;
-
 /**
  * @author ntoro
  * @since 05/06/2014 11:48

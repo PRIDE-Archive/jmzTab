@@ -1051,7 +1051,7 @@ public class ConvertPrideXMLFile extends ConvertProvider<File, Void> {
                 if (!isIdentification() && (QuantitationCVParam.UNIT_RATIO.getAccession().equals(p.getAccession()) ||
                         QuantitationCVParam.UNIT_COPIES_PER_CELL.getAccession().equals(p.getAccession()))) {
                     CVParam param = convertParam(p);
-                    if (param != null && metadata.getProteinQuantificationUnit() == null) {
+                    if (metadata.getProteinQuantificationUnit() == null) {
                         metadata.setProteinQuantificationUnit(param);
                     }
                 }
@@ -1148,9 +1148,7 @@ public class ConvertPrideXMLFile extends ConvertProvider<File, Void> {
         } else { //It tries to find the search engine at least
             CVParam searchEngineParam = SearchEngineParam.findParamByName(searchEngineName).getParam();
 
-            if (searchEngineParam != null) {
-                protein.addSearchEngineParam(searchEngineParam);
-            }
+            protein.addSearchEngineParam(searchEngineParam);
         }
     }
 

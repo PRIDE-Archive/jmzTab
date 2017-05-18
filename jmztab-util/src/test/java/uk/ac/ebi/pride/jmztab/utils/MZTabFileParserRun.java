@@ -2,7 +2,6 @@ package uk.ac.ebi.pride.jmztab.utils;
 
 import org.junit.Before;
 import org.junit.Test;
-import uk.ac.ebi.pride.jmztab.model.MZTabFile;
 import uk.ac.ebi.pride.jmztab.utils.errors.MZTabErrorType;
 
 import java.io.File;

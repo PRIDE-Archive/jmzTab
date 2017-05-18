@@ -133,7 +133,7 @@ public class MZTabCommandLine {
                     throw new IllegalArgumentException("Not setting input file!");
                 }
 
-                System.out.println("Begin converting " + inFile.getAbsolutePath() + " which format is " + format.name() + " to mztab file.");
+                System.out.println("Begin converting " + inFile.getAbsolutePath() + " which format is " + (format != null ? format.name() : null) + " to mztab file.");
                 MZTabFileConverter converter = new MZTabFileConverter(inFile, format);
                 MZTabFile tabFile = converter.getMZTabFile();
                 MZTabErrorList errorList = converter.getErrorList();

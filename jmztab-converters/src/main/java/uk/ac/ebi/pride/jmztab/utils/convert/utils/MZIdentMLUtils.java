@@ -81,7 +81,7 @@ public final class MZIdentMLUtils {
         for(CvParam param: cvParams)
             if(SearchEngineScoreParam.getSearchEngineScoreParamByAccession(param.getAccession()) != null){
                 SearchEngineScoreParam searchEngineScoreParam = SearchEngineScoreParam.getSearchEngineScoreParamByAccession(param.getAccession());
-                SearchEngineParam seachEngine = searchEngineScoreParam.getSearchEngineParam();
+                SearchEngineParam seachEngine = searchEngineScoreParam != null ? searchEngineScoreParam.getSearchEngineParam() : null;
                 searchEngines.add(seachEngine);
             }
 

@@ -152,9 +152,7 @@ public enum SearchEngineParam {
 
         try {
             param = SearchEngineParam.valueOf(convertName(searchEngineName));
-            if (param != null) {
-                return param;
-            }
+            return param;
         } catch (IllegalArgumentException e) {
             param = null;
         }

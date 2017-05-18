@@ -54,11 +54,13 @@ public class ConvertFilesRun {
         if(input != null) {
             File inputDir = new File(input.getFile());
 
-            for (File tabFile : inputDir.listFiles()) {
-                if(tabFile.isFile() && !tabFile.isHidden()){
-                    String tabFileName = (tabFile.getName().contains(".xml"))?tabFile.getName().replace(".xml", ".mztab"):tabFile.getName();
-                    tabFileName        = (tabFileName.contains(".mzid"))?tabFile.getName().replace(".mzid", ".mztab"):tabFileName;
-                    run.convert(tabFile, new File("temp", tabFileName));
+            if(inputDir.exists() && inputDir.isDirectory()){
+                for (File tabFile : inputDir.listFiles()) {
+                    if(tabFile.isFile() && !tabFile.isHidden()){
+                        String tabFileName = (tabFile.getName().contains(".xml"))?tabFile.getName().replace(".xml", ".mztab"):tabFile.getName();
+                        tabFileName        = (tabFileName.contains(".mzid"))?tabFile.getName().replace(".mzid", ".mztab"):tabFileName;
+                        run.convert(tabFile, new File("temp", tabFileName));
+                    }
                 }
             }
         } else {

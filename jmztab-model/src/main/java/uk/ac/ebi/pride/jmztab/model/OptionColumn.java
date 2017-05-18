@@ -24,12 +24,10 @@ public class OptionColumn extends MZTabColumn {
             throw new IllegalArgumentException("Optional column's value should not be empty.");
         }
 
-        StringBuilder sb = new StringBuilder();
+        String sb = OPT + "_" + (element == null ? GLOBAL : element.getReference()) +
+                "_" + value.replaceAll(" ", "_");
 
-        sb.append(OPT).append("_").append(element == null ? GLOBAL : element.getReference());
-        sb.append("_").append(value.replaceAll(" ", "_"));
-
-        return sb.toString();
+        return sb;
     }
 
     /**
