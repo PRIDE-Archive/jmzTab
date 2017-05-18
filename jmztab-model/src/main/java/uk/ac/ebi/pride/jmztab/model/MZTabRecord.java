@@ -68,7 +68,7 @@ public abstract class MZTabRecord {
      */
     public boolean setValue(String logicalPosition, Object value) {
         if (value == null) {
-            record.put(logicalPosition, value);
+            record.put(logicalPosition, null);
             return true;
         }
 

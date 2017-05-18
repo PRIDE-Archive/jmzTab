@@ -112,8 +112,8 @@ public enum QuantitationCVParam {
     private String name;
     private String value;
 
-    private QuantitationCVParam(String cvLabel, String accession, String name,
-                                String value) {
+    QuantitationCVParam(String cvLabel, String accession, String name,
+                        String value) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;

@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -99,7 +100,7 @@ public class MZTabUtilTest {
     public void testDouble() throws Exception {
         Double value;
         value = parseDouble("NaN");
-        assertTrue(value.equals(Double.NaN));
+        assertTrue(Objects.equals(value, Double.NaN));
     }
 
     @Test
@@ -290,7 +291,7 @@ public class MZTabUtilTest {
 
         // test no modification.
         Modification mod = parseModification(Section.Protein, "0");
-        assertTrue(mod.toString().equals("0"));
+        assertTrue(mod != null ? mod.toString().equals("0") : false);
         modList = parseModificationList(Section.Protein, "0");
         assertTrue(modList.size() == 1);
     }

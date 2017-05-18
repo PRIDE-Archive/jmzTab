@@ -113,7 +113,7 @@ public enum SearchEngineParam {
     private String name;
     private String value;
 
-    private SearchEngineParam(String cvLabel, String accession, String name, String value) {
+    SearchEngineParam(String cvLabel, String accession, String name, String value) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;

@@ -54,7 +54,7 @@ public class ConvertFilesRun {
         if(input != null) {
             File inputDir = new File(input.getFile());
 
-            if(inputDir.exists() && inputDir.isDirectory()){
+            if(inputDir != null && inputDir.exists() && inputDir.isDirectory()){
                 for (File tabFile : inputDir.listFiles()) {
                     if(tabFile.isFile() && !tabFile.isHidden()){
                         String tabFileName = (tabFile.getName().contains(".xml"))?tabFile.getName().replace(".xml", ".mztab"):tabFile.getName();

@@ -548,7 +548,7 @@ public class MZTabUtils {
 
         target = translateMinusToUnicode(target);
         target = translateMinusInCVtoUnicode(target);
-        if (target == null) {
+        if (target.isEmpty()) {
             return null;
         }
 
@@ -592,7 +592,7 @@ public class MZTabUtils {
         } else if(parseParam(modLabel) != null){
            // Check if is a Neutral Loss
             CVParam param = (CVParam) parseParam(modLabel);
-            modification = new Modification(section, Modification.Type.NEUTRAL_LOSS, param.getAccession());
+            modification = new Modification(section, Modification.Type.NEUTRAL_LOSS, param != null ? param.getAccession() : null);
             modification.setNeutralLoss(param);
             if (positionLabel != null) {
                 parseModificationPosition(positionLabel, modification);

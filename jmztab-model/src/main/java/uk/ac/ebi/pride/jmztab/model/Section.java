@@ -34,7 +34,7 @@ public enum Section {
     private String name;
     private int level;
 
-    private Section(String prefix, String name, int level) {
+    Section(String prefix, String name, int level) {
         this.prefix = prefix;
         this.name = name;
         this.level = level;
