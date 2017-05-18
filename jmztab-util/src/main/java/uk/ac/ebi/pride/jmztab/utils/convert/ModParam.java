@@ -194,7 +194,7 @@ public enum ModParam {
     private String value;
     private Boolean biological;
 
-    private ModParam(String cvLabel, String accession, String name, String value, Boolean biological) {
+    ModParam(String cvLabel, String accession, String name, String value, Boolean biological) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;

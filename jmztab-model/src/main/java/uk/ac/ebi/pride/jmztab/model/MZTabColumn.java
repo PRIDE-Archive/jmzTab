@@ -298,9 +298,7 @@ public class MZTabColumn {
         if (optional != column.optional) return false;
         if (dataType != null ? !dataType.equals(column.dataType) : column.dataType != null) return false;
         if (header != null ? !header.equals(column.header) : column.header != null) return false;
-        if (logicPosition != null ? !logicPosition.equals(column.logicPosition) : column.logicPosition != null) return false;
-
-        return true;
+        return logicPosition != null ? logicPosition.equals(column.logicPosition) : column.logicPosition == null;
     }
 
     @Override

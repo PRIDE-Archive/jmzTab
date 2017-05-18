@@ -301,12 +301,16 @@ public class MZTabUtils {
         try {
             value = new Double(target);
         } catch (NumberFormatException e) {
-            if (target.equals(CALCULATE_ERROR)) {
-                value = Double.NaN;
-            } else if (target.equals(INFINITY)) {
-                value = Double.POSITIVE_INFINITY;
-            } else {
-                value = null;
+            switch (target) {
+                case CALCULATE_ERROR:
+                    value = Double.NaN;
+                    break;
+                case INFINITY:
+                    value = Double.POSITIVE_INFINITY;
+                    break;
+                default:
+                    value = null;
+                    break;
             }
         }
 

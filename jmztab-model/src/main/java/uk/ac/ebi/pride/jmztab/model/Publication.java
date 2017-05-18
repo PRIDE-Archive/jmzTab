@@ -71,9 +71,7 @@ public class Publication extends IndexedElement {
 
         Publication that = (Publication) o;
 
-        if (itemList != null ? !itemList.equals(that.itemList) : that.itemList != null) return false;
-
-        return true;
+        return itemList != null ? itemList.equals(that.itemList) : that.itemList == null;
     }
 
     @Override

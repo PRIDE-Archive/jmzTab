@@ -129,9 +129,7 @@ public class Instrument extends IndexedElement {
         if (analyzerList != null ? !analyzerList.equals(that.analyzerList) : that.analyzerList != null) return false;
         if (detector != null ? !detector.equals(that.detector) : that.detector != null) return false;
         if (!name.equals(that.name)) return false;
-        if (source != null ? !source.equals(that.source) : that.source != null) return false;
-
-        return true;
+        return source != null ? source.equals(that.source) : that.source == null;
     }
 
     @Override

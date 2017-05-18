@@ -124,9 +124,8 @@ public class MzIdentMLUnmarshallerAdaptor extends MzIdentMLUnmarshaller {
         if (oldSpectraDataMap != null && !oldSpectraDataMap.isEmpty()) {
             spectraDataMapResult = new HashMap<Comparable, SpectraData>();
 
-            Iterator iterator = oldSpectraDataMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) iterator.next();
+            for (Object o : oldSpectraDataMap.entrySet()) {
+                Map.Entry mapEntry = (Map.Entry) o;
                 SpectraData spectraData = (SpectraData) mapEntry.getValue();
                 spectraDataMapResult.put((Comparable) mapEntry.getKey(), spectraData);
             }

@@ -46,7 +46,7 @@ public enum ConverterCVParam {
     private String name;
     private String value;
 
-    private ConverterCVParam(String cvLabel, String accession, String name, String value) {
+    ConverterCVParam(String cvLabel, String accession, String name, String value) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;
