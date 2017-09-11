@@ -184,7 +184,7 @@ public class MZTabColumnFactory {
             case Small_Molecule_Header:
                 addStableColumn(this, SmallMoleculeColumn.SML_ID);
                 addStableColumn(this, SmallMoleculeColumn.SMF_ID_REFS);
-                addStableColumn(this, SmallMoleculeColumn.DATABASE_IDENTIFIER);
+                addStableColumn(this, SmallMoleculeColumn.IDENTIFIER);
                 addStableColumn(this, SmallMoleculeColumn.CHEMICAL_FORMULA);
                 addStableColumn(this, SmallMoleculeColumn.SMILES);
                 addStableColumn(this, SmallMoleculeColumn.INCHI);

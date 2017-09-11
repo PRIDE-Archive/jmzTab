@@ -47,8 +47,8 @@ public class SMHLineParser extends MZTabHeaderLineParser {
             column = null;
             header = items[physicalPosition];
 
-            if (header.equals(DATABASE_IDENTIFIER.getName())) {
-                column = DATABASE_IDENTIFIER;
+            if (header.equals(IDENTIFIER.getName())) {
+                column = IDENTIFIER;
             } else if (header.equals(CHEMICAL_FORMULA.getName())) {
                 column = CHEMICAL_FORMULA;
             } else if (header.equals(SMILES.getName())) {
@@ -211,7 +211,7 @@ public class SMHLineParser extends MZTabHeaderLineParser {
 
         //mandatory columns
         List<String> mandatoryColumnHeaders = new ArrayList<String>();
-        mandatoryColumnHeaders.add(DATABASE_IDENTIFIER.getName());
+        mandatoryColumnHeaders.add(IDENTIFIER.getName());
         mandatoryColumnHeaders.add(CHEMICAL_FORMULA.getName());
         mandatoryColumnHeaders.add(SMILES.getName());
         mandatoryColumnHeaders.add(INCHI.getName());

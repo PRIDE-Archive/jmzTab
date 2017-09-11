@@ -69,7 +69,7 @@ public class SmallMolecule extends MZTabRecord {
      * of the identifier format).
      */
     public SplitList<String> getIdentifier() {
-        return getSplitList(SmallMoleculeColumn.DATABASE_IDENTIFIER, String.class);
+        return getSplitList(SmallMoleculeColumn.IDENTIFIER, String.class);
     }
 
     /**
@@ -96,7 +96,7 @@ public class SmallMolecule extends MZTabRecord {
      * of the identifier format).
      */
     public void setIdentifier(SplitList<String> identifier) {
-        setValue(SmallMoleculeColumn.DATABASE_IDENTIFIER, identifier);
+        setValue(SmallMoleculeColumn.IDENTIFIER, identifier);
     }
 
     /**

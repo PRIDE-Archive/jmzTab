@@ -222,7 +222,7 @@ public abstract class MZTabRecord {
     /**
      * Get cell value and convert it to {@link SplitList} object. If can not convert, return null.
      */
-    protected <T> SplitList<T> getSplitList(String logicalPosition, Class<T> contentType) {
+    protected <T> SplitList<T> getSplitList(String logicalPosition, Class<? extends T> contentType) {
         if (! isMatch(logicalPosition, SplitList.class)) {
             return null;
         }
@@ -233,7 +233,7 @@ public abstract class MZTabRecord {
     /**
      * Get cell value of column and convert it to {@link SplitList} object. If can not convert, return null.
      */
-    protected <T> SplitList<T> getSplitList(MZTabColumn column, Class<T> contentType) {
+    protected <T> SplitList<T> getSplitList(MZTabColumn column, Class<? extends T> contentType) {
         return getSplitList(column.getLogicPosition(), contentType);
     }
 

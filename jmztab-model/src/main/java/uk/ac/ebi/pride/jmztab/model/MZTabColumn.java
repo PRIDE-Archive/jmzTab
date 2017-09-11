@@ -18,13 +18,13 @@ package uk.ac.ebi.pride.jmztab.model;
  * @author qingwei
  * @since 23/05/13
  */
-public class MZTabColumn<T> {
+public class MZTabColumn {
     private final String name;
     private String order;
     private Integer id;
     private String header;
     private String logicPosition;
-    private Class<T> dataType;
+    private Class dataType;
     private boolean optional;
 
     private IndexedElement element;
@@ -40,7 +40,7 @@ public class MZTabColumn<T> {
      * @param order internal order. Every non {@link OptionColumn} has stable order. Column order is used to maintain the
      *              logical position in {@link MZTabColumnFactory}
      */
-    public MZTabColumn(String name, Class<T> dataType, boolean optional, String order) {
+    public MZTabColumn(String name, Class dataType, boolean optional, String order) {
         this(name, dataType, optional, order, null);
     }
 
@@ -56,7 +56,7 @@ public class MZTabColumn<T> {
      *              logical position in {@link MZTabColumnFactory}
      * @param id incremental index used for some optional columns like best_search_engine_score[1], best_search_engine_score[2]
      */
-    public MZTabColumn(String name, Class<T> dataType, boolean optional, String order, Integer id) {
+    public MZTabColumn(String name, Class dataType, boolean optional, String order, Integer id) {
         if (MZTabUtils.isEmpty(name)) {
             throw new IllegalArgumentException("Column name should not empty.");
         }
@@ -191,7 +191,7 @@ public class MZTabColumn<T> {
     /**
      * Get the column data type Class.
      */
-    public Class<T> getDataType() {
+    public Class getDataType() {
         return dataType;
     }
 
@@ -250,15 +250,15 @@ public class MZTabColumn<T> {
      *
      * @see MZTabColumnFactory#addOptionalColumn(MZTabColumn, MsRun)
      */
-    static <T> MZTabColumn<T> createOptionalColumn(Section section, MZTabColumn<T> column, Integer id, IndexedElement element) {
+    static MZTabColumn createOptionalColumn(Section section, MZTabColumn column, Integer id, IndexedElement element) {
         if (! column.isOptional()) {
             throw new IllegalArgumentException(column + " is not optional column!");
         }
 
-        MZTabColumn<T> optionColumn = null;
+        MZTabColumn optionColumn = null;
         switch (section) {
             case Protein_Header:
-                optionColumn = (MZTabColumn<T>)new ProteinColumn(column.getName(), column.getDataType(), column.isOptional(), column.getOrder(), id);
+                optionColumn = new ProteinColumn(column.getName(), column.getDataType(), column.isOptional(), column.getOrder(), id);
                 break;
             case Peptide_Header:
                 optionColumn = new PeptideColumn(column.getName(), column.getDataType(), column.isOptional(), column.getOrder(), id);
