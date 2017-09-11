@@ -14,7 +14,7 @@ public enum MZBoolean {
     /**
      * "0" for false, "1" for true.
      */
-    private MZBoolean(String value) {
+    MZBoolean(String value) {
         this.value = value;
     }
 

@@ -21,7 +21,7 @@ public enum MetadataSubElement {
      * @param element SHOULD NOT set null.
      * @param subName SHOULD NOT empty.
      */
-    private MetadataSubElement(MetadataElement element, String subName) {
+    MetadataSubElement(MetadataElement element, String subName) {
         if (element == null) {
             throw new NullPointerException("Metadata element should not be null!");
         }

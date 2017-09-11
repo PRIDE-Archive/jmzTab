@@ -100,9 +100,7 @@ public class Contact extends IndexedElement {
 
         Contact contact = (Contact) o;
 
-        if (email != null ? !email.equals(contact.email) : contact.email != null) return false;
-
-        return true;
+        return email != null ? email.equals(contact.email) : contact.email == null;
     }
 
     /**

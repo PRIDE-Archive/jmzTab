@@ -77,7 +77,7 @@ public enum MetadataProperty {
      * For example: assay[1-n]-sample_ref, assay[1-n] is {@link MetadataElement#ASSAY},
      * sample_ref is {@link MetadataProperty#ASSAY_SAMPLE_REF}
      */
-    private MetadataProperty(MetadataElement element, String name) {
+    MetadataProperty(MetadataElement element, String name) {
         this.element = element;
         this.subElement = null;
         this.name = name;
@@ -88,7 +88,7 @@ public enum MetadataProperty {
      * For example: assay[1-n]-quantification_mod[1-n]-position, assay[1-n] is {@link MetadataElement#ASSAY},
      * quantification_mod[1-n] is {@link MetadataSubElement#ASSAY_QUANTIFICATION_MOD} and position is {@link #name}
      */
-    private MetadataProperty(MetadataSubElement subElement, String name) {
+    MetadataProperty(MetadataSubElement subElement, String name) {
         this.element = subElement.getElement();
         this.subElement = subElement;
         this.name = name;

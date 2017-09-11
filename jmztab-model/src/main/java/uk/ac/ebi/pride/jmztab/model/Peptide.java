@@ -6,7 +6,6 @@ import static uk.ac.ebi.pride.jmztab.model.MZTabConstants.BAR;
 import static uk.ac.ebi.pride.jmztab.model.MZTabConstants.COMMA;
 import static uk.ac.ebi.pride.jmztab.model.MZTabConstants.TAB;
 import static uk.ac.ebi.pride.jmztab.model.MZTabUtils.*;
-import static uk.ac.ebi.pride.jmztab.model.MZTabUtils.parseURI;
 
 /**
  * The peptide section is table based. The peptide section must always come after the metadata section

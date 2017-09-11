@@ -28,12 +28,8 @@ public class AssayQuantificationMod extends Mod {
      */
     @Override
     public String getReference() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(MetadataElement.ASSAY).append("[").append(assay.getId()).append("]").append(MINUS);
-        sb.append(MetadataSubElement.ASSAY_QUANTIFICATION_MOD).append("[").append(getId()).append("]");
-
-        return sb.toString();
+        return String.valueOf(MetadataElement.ASSAY) + "[" + assay.getId() + "]" + MINUS +
+                MetadataSubElement.ASSAY_QUANTIFICATION_MOD + "[" + getId() + "]";
     }
 
     @Override

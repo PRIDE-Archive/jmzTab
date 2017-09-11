@@ -46,9 +46,7 @@ public abstract class SearchEngineScore extends IndexedElement {
 
         SearchEngineScore that = (SearchEngineScore) o;
 
-        if (param != null ? !param.equals(that.param) : that.param != null) return false;
-
-        return true;
+        return param != null ? param.equals(that.param) : that.param == null;
     }
 
     @Override

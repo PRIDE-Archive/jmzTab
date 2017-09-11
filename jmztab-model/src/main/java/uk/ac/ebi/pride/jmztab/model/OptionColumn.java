@@ -24,12 +24,8 @@ public class OptionColumn<T> extends MZTabColumn<T> {
             throw new IllegalArgumentException("Optional column's value should not be empty.");
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(OPT).append("_").append(element == null ? GLOBAL : element.getReference());
-        sb.append("_").append(value.replaceAll(" ", "_"));
-
-        return sb.toString();
+        return OPT + "_" + (element == null ? GLOBAL : element.getReference()) +
+                "_" + value.replaceAll(" ", "_");
     }
 
     /**

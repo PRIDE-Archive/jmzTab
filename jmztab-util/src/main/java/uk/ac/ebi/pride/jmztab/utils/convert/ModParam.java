@@ -1,7 +1,5 @@
 package uk.ac.ebi.pride.jmztab.utils.convert;
 
-import uk.ac.ebi.pride.jmztab.model.Mod;
-
 /**
  * @author ntoro
  * @since 05/06/2014 11:48
@@ -194,7 +192,7 @@ public enum ModParam {
     private String value;
     private Boolean biological;
 
-    private ModParam(String cvLabel, String accession, String name, String value, Boolean biological) {
+    ModParam(String cvLabel, String accession, String name, String value, Boolean biological) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;

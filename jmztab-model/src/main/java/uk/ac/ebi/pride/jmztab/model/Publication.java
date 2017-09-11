@@ -57,11 +57,8 @@ public class Publication extends IndexedElement {
      * Print publication into string.
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append(printElement(itemList)).append(NEW_LINE);
-
-        return sb.toString();
+        return printElement(itemList) + NEW_LINE;
     }
 
     @Override
@@ -71,9 +68,7 @@ public class Publication extends IndexedElement {
 
         Publication that = (Publication) o;
 
-        if (itemList != null ? !itemList.equals(that.itemList) : that.itemList != null) return false;
-
-        return true;
+        return itemList != null ? itemList.equals(that.itemList) : that.itemList == null;
     }
 
     @Override

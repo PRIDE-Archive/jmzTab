@@ -113,7 +113,7 @@ public enum SearchEngineParam {
     private String name;
     private String value;
 
-    private SearchEngineParam(String cvLabel, String accession, String name, String value) {
+    SearchEngineParam(String cvLabel, String accession, String name, String value) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;
@@ -152,9 +152,7 @@ public enum SearchEngineParam {
 
         try {
             param = SearchEngineParam.valueOf(convertName(searchEngineName));
-            if (param != null) {
-                return param;
-            }
+            return param;
         } catch (IllegalArgumentException e) {
             param = null;
         }

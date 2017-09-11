@@ -55,10 +55,7 @@ public class SpectraRef {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append(msRun.getReference()).append(COLON).append(reference);
-
-        return sb.toString();
+        return msRun.getReference() + COLON + reference;
     }
 }

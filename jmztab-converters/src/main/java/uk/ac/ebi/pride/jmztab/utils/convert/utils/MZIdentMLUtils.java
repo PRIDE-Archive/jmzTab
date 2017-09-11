@@ -43,7 +43,7 @@ public final class MZIdentMLUtils {
     /**
      * Supported id format used in the spectrum file.
      */
-    public static enum SpecIdFormat {
+    public enum SpecIdFormat {
         MASCOT_QUERY_NUM,
         MULTI_PEAK_LIST_NATIVE_ID,
         SINGLE_PEAK_LIST_NATIVE_ID,
@@ -58,7 +58,7 @@ public final class MZIdentMLUtils {
     /**
      * An enum of the supported spectra file types
      */
-    public static enum SpecFileFormat {
+    public enum SpecFileFormat {
         MZML,
         PKL,
         DTA,
@@ -81,7 +81,7 @@ public final class MZIdentMLUtils {
         for(CvParam param: cvParams)
             if(SearchEngineScoreParam.getSearchEngineScoreParamByAccession(param.getAccession()) != null){
                 SearchEngineScoreParam searchEngineScoreParam = SearchEngineScoreParam.getSearchEngineScoreParamByAccession(param.getAccession());
-                SearchEngineParam seachEngine = searchEngineScoreParam.getSearchEngineParam();
+                SearchEngineParam seachEngine = searchEngineScoreParam != null ? searchEngineScoreParam.getSearchEngineParam() : null;
                 searchEngines.add(seachEngine);
             }
 

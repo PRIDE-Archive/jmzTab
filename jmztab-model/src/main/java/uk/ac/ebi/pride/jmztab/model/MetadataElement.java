@@ -37,7 +37,7 @@ public enum MetadataElement {
 
     private String name;
 
-    private MetadataElement(String name) {
+    MetadataElement(String name) {
         this.name = name;
     }
 

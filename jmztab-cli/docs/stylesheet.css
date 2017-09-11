@@ -83,12 +83,12 @@ Document title and Copyright styles
 */
 .clear {
     clear:both;
-    height:0px;
+    height:0;
     overflow:hidden;
 }
 .aboutLanguage {
     float:right;
-    padding:0px 21px;
+    padding:0 21px;
     font-size:11px;
     z-index:200;
     margin-top:-9px;
@@ -251,7 +251,7 @@ ul.blockList ul.blockList li.blockList h3 {
     margin:15px 0;
 }
 ul.blockList li.blockList h2 {
-    padding:0px 0 20px 0;
+    padding:0 0 20px 0;
 }
 /*
 Page layout container styles

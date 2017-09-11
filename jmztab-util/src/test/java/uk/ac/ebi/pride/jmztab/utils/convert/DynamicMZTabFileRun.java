@@ -19,7 +19,7 @@ public class DynamicMZTabFileRun {
         String name = "testset/PRIDE_Example.mztab";
 
         URL input = DynamicMZTabFileRun.class.getClassLoader().getResource(name);
-        MZTabFileParser parser = new MZTabFileParser(new File(input.getFile()), System.out, MZTabErrorType.Level.Error);
+        MZTabFileParser parser = new MZTabFileParser(new File(input != null ? input.getFile() : null), System.out, MZTabErrorType.Level.Error);
         MZTabFile tabFile = parser.getMZTabFile();
 
         DynamicMZTabFile modifyTabFile = new DynamicMZTabFile(tabFile);

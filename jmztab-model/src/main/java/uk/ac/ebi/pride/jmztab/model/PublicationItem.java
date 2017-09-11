@@ -82,10 +82,7 @@ public class PublicationItem {
 
         PublicationItem that = (PublicationItem) o;
 
-        if (!accession.equals(that.accession)) return false;
-        if (type != that.type) return false;
-
-        return true;
+        return accession.equals(that.accession) && type == that.type;
     }
 
     @Override

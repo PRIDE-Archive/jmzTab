@@ -81,8 +81,9 @@ public class MZTabCommandLine {
         // Parse command line
         CommandLine line = parser.parse(options, args);
         if (line.hasOption(helpOpt)) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jmztab", options);
+            //HelpFormatter formatter = new HelpFormatter();
+            //formatter.printHelp("jmztab", options);
+            printHelpHack();
         } else if (line.hasOption(msgOpt)) {
             String[] values = line.getOptionValues(msgOpt);
             Integer code = new Integer(values[1]);
@@ -132,7 +133,7 @@ public class MZTabCommandLine {
                     throw new IllegalArgumentException("Not setting input file!");
                 }
 
-                System.out.println("Begin converting " + inFile.getAbsolutePath() + " which format is " + format.name() + " to mztab file.");
+                System.out.println("Begin converting " + inFile.getAbsolutePath() + " which format is " + (format != null ? format.name() : null) + " to mztab file.");
                 MZTabFileConverter converter = new MZTabFileConverter(inFile, format);
                 MZTabFile tabFile = converter.getMZTabFile();
                 MZTabErrorList errorList = converter.getErrorList();
@@ -150,6 +151,31 @@ public class MZTabCommandLine {
             System.out.println();
             out.close();
         }
+    }
+
+    /**
+     * TODO
+     * WARNING - NOTICE We needed the help message coming from the tool to give the user actual working parameters on
+     * how to use this command line tool. The problem is that this package is using a really old version of commons-cli
+     * from Apache, where OptionBuilder has been deprecated (to my understanding after some time browsing documentation
+     * on the internet), and the new versions of commons-cli are in mvnrepository, instead of Maven Central. This means
+     * the package needs a lot more detailed/deeper work regarding command line options, thus, having into account that
+     * I only need the help message to match the wiki, which contains working instructions, and nothing else is being
+     * added to this software in this iteration, plus the fact that we are in the process of reorganizing our maven
+     * infrastructure, the problem with apache commons-cli will be addressed later on when either an extension is being
+     * implemented or deployment integration works are being carried out on this package regarding our new infrastructure.
+     */
+    private static void printHelpHack() {
+        System.out.println("usage: jmztab\n" +
+                " -check inFile=<inFile>                     Choose a file from input directory. This\n" +
+                "                                            parameter should not be null!\n" +
+                " -convert inFile=<inFile> format=<format>   Converts the given format file (PRIDE or MZIDENTML) to an mztab\n" +
+                "                                            file.\n" +
+                " -h,--help                                  print help message\n" +
+                " -message code=<code>                       print Error/Warn detail message based on code\n" +
+                "                                            number.\n" +
+                " -outFile <arg>                             Dump output data to the given file. If\n" +
+                "                                            not set, output data will be dumped on stdout");
     }
 
 }

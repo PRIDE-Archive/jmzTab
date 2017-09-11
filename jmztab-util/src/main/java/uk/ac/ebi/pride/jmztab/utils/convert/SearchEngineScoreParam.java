@@ -172,7 +172,7 @@ public enum SearchEngineScoreParam {
     private String name;
     private String score;
 
-    private SearchEngineScoreParam(SearchEngineParam searchEngineParam, String cvLabel, String accession, String name, String score) {
+    SearchEngineScoreParam(SearchEngineParam searchEngineParam, String cvLabel, String accession, String name, String score) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;

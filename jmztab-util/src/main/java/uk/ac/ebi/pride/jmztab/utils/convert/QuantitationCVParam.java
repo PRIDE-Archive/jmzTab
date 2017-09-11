@@ -112,8 +112,8 @@ public enum QuantitationCVParam {
     private String name;
     private String value;
 
-    private QuantitationCVParam(String cvLabel, String accession, String name,
-                                String value) {
+    QuantitationCVParam(String cvLabel, String accession, String name,
+                        String value) {
         this.cvLabel = cvLabel;
         this.accession = accession;
         this.name = name;
@@ -349,12 +349,8 @@ public enum QuantitationCVParam {
             return true;
         if (ITRAQ_118_REAGENT.getAccession().equals(accession))
             return true;
-        if (ITRAQ_119_REAGENT.getAccession().equals(accession))
-            return true;
-        if (ITRAQ_121_REAGENT.getAccession().equals(accession))
-            return true;
+        return ITRAQ_119_REAGENT.getAccession().equals(accession) || ITRAQ_121_REAGENT.getAccession().equals(accession);
 
-        return false;
     }
 
     public static boolean isQuantificationMethod(String accession) {
@@ -372,12 +368,8 @@ public enum QuantitationCVParam {
             return true;
         if (ITRAQ_QUANTIFIED.getAccession().equals(accession))
             return true;
-        if (EMPAI_QUANTIFIED.getAccession().equals(accession))
-            return true;
-        if (TIC_QUANTIFIED.getAccession().equals(accession))
-            return true;
+        return EMPAI_QUANTIFIED.getAccession().equals(accession) || TIC_QUANTIFIED.getAccession().equals(accession);
 
-        return false;
     }
 
     /**
@@ -400,12 +392,8 @@ public enum QuantitationCVParam {
         if (ITRAQ_QUANTIFIED.getAccession().equals(accession))
             return true;
         // only the emPAI can't be reported for peptides
-        if (EMPAI_QUANTIFIED.getAccession().equals(accession))
-            return false;
-        if (TIC_QUANTIFIED.getAccession().equals(accession))
-            return true;
+        return !EMPAI_QUANTIFIED.getAccession().equals(accession) && TIC_QUANTIFIED.getAccession().equals(accession);
 
-        return false;
     }
 
     /**
