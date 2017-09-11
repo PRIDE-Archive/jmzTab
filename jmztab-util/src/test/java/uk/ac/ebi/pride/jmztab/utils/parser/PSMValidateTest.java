@@ -27,10 +27,10 @@ public class PSMValidateTest {
 
     public PSMValidateTest() throws Exception {
         MTDLineParserTest test = new MTDLineParserTest();
-        String fileName = "/testset/mtdFile.txt";
+        String fileName = "testset/mtdFile.txt";
         Metadata metadata;
 
-        URL uri = getClass().getResource(fileName);
+        URL uri = PSMValidateTest.class.getClassLoader().getResource(fileName);
         if(uri != null) {
             metadata = test.parseMetadata(uri.getFile());
         } else {
