@@ -53,8 +53,8 @@ public class SMHLineParser extends MZTabHeaderLineParser {
                 column = CHEMICAL_FORMULA;
             } else if (header.equals(SMILES.getName())) {
                 column = SMILES;
-            } else if (header.equals(INCHI.getName())) {
-                column = INCHI;
+            } else if (header.equals(INCHI_KEY.getName())) {
+                column = INCHI_KEY;
             } else if (header.equals(DESCRIPTION.getName())) {
                 column = DESCRIPTION;
             } else if (header.equals(EXP_MASS_TO_CHARGE.getName())) {
@@ -214,7 +214,7 @@ public class SMHLineParser extends MZTabHeaderLineParser {
         mandatoryColumnHeaders.add(IDENTIFIER.getName());
         mandatoryColumnHeaders.add(CHEMICAL_FORMULA.getName());
         mandatoryColumnHeaders.add(SMILES.getName());
-        mandatoryColumnHeaders.add(INCHI.getName());
+        mandatoryColumnHeaders.add(INCHI_KEY.getName());
         mandatoryColumnHeaders.add(DESCRIPTION.getName());
         mandatoryColumnHeaders.add(EXP_MASS_TO_CHARGE.getName());
         mandatoryColumnHeaders.add(CALC_MASS_TO_CHARGE.getName());

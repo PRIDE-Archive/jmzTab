@@ -16,11 +16,9 @@ import java.util.TreeMap;
  */
 public class AbundanceColumn extends MZTabColumn {
     public enum Field {
-        ABUNDANCE_ASSAY                     ("abundance_assay",                   Double.class,    1),
-        ABUNDANCE_STDEV                     ("abundance_stdev",                   Double.class,    2),
-        ABUNDANCE_STD_ERROR                 ("abundance_std_error",               Double.class,    3),
-        ABUNDANCE_STUDY_VARIABLE            ("abundance_study_variable",          Double.class,    4),
-        ABUNDANCE_COEFFVAR_STUDY_VARIABLE   ("abundance_coeffvar_study_variable", Double.class,    5);
+        ABUNDANCE          ("abundance",              Double.class,    1),
+        ABUNDANCE_STDEV    ("abundance_stdev",        Double.class,    2),
+        ABUNDANCE_STD_ERROR("abundance_std_error",    Double.class,    3);
 
         private String name;
         private Class columnType;
@@ -79,7 +77,7 @@ public class AbundanceColumn extends MZTabColumn {
             throw new NullPointerException("Assay should not be null!");
         }
 
-        return new AbundanceColumn(Section.toDataSection(section), Field.ABUNDANCE_ASSAY, assay, offset);
+        return new AbundanceColumn(Section.toDataSection(section), Field.ABUNDANCE, assay, offset);
     }
 
     /**
@@ -108,21 +106,14 @@ public class AbundanceColumn extends MZTabColumn {
         SortedMap<String, MZTabColumn> columns = new TreeMap<String, MZTabColumn>();
         Section dataSection = Section.toDataSection(section);
 
-        if(section==Section.Small_Molecule) {
-            AbundanceColumn column;
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STUDY_VARIABLE, studyVariable, offset);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_COEFFVAR_STUDY_VARIABLE, studyVariable, offset);
-            columns.put(column.getLogicPosition(), column);
-        } else {
-            AbundanceColumn column;
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STUDY_VARIABLE, studyVariable, offset);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, offset);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, offset);
-            columns.put(column.getLogicPosition(), column);
-        }
+        AbundanceColumn column;
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, offset);
+        columns.put(column.getLogicPosition(), column);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, offset);
+        columns.put(column.getLogicPosition(), column);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, offset);
+        columns.put(column.getLogicPosition(), column);
+
         return columns;
     }
 
@@ -139,21 +130,13 @@ public class AbundanceColumn extends MZTabColumn {
         SortedMap<String, MZTabColumn> columns = new TreeMap<String, MZTabColumn>();
         Section dataSection = Section.toDataSection(section);
 
-        if(section==Section.Small_Molecule) {
-            AbundanceColumn column;
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STUDY_VARIABLE, studyVariable, lastOrder);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_COEFFVAR_STUDY_VARIABLE, studyVariable, lastOrder);
-            columns.put(column.getLogicPosition(), column);
-        } else {
-            AbundanceColumn column;
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STUDY_VARIABLE, studyVariable, lastOrder);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, lastOrder);
-            columns.put(column.getLogicPosition(), column);
-            column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, lastOrder);
-            columns.put(column.getLogicPosition(), column);
-        }
+        AbundanceColumn column;
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, lastOrder);
+        columns.put(column.getLogicPosition(), column);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, lastOrder);
+        columns.put(column.getLogicPosition(), column);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, lastOrder);
+        columns.put(column.getLogicPosition(), column);
 
         return columns;
     }

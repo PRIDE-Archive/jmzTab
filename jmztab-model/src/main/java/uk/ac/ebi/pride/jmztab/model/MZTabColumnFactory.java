@@ -182,27 +182,22 @@ public class MZTabColumnFactory {
                 addStableColumn(this, PSMColumn.END);
                 break;
             case Small_Molecule_Header:
-                addStableColumn(this, SmallMoleculeColumn.SML_ID);
-                addStableColumn(this, SmallMoleculeColumn.SMF_ID_REFS);
                 addStableColumn(this, SmallMoleculeColumn.IDENTIFIER);
                 addStableColumn(this, SmallMoleculeColumn.CHEMICAL_FORMULA);
                 addStableColumn(this, SmallMoleculeColumn.SMILES);
-                addStableColumn(this, SmallMoleculeColumn.INCHI);
+                addStableColumn(this, SmallMoleculeColumn.INCHI_KEY);
                 addStableColumn(this, SmallMoleculeColumn.DESCRIPTION);
-                addStableColumn(this, SmallMoleculeColumn.THEORETICAL_NEUTRAL_MASS);
                 addStableColumn(this, SmallMoleculeColumn.EXP_MASS_TO_CHARGE);
+                addStableColumn(this, SmallMoleculeColumn.CALC_MASS_TO_CHARGE);
+                addStableColumn(this, SmallMoleculeColumn.CHARGE);
                 addStableColumn(this, SmallMoleculeColumn.RETENTION_TIME);
-                addStableColumn(this, SmallMoleculeColumn.ADDUCT_IONS);
-                addStableColumn(this, SmallMoleculeColumn.RELIABILITY);
-                addStableColumn(this, SmallMoleculeColumn.URI);
-                addStableColumn(this, SmallMoleculeColumn.BEST_SEARCH_ENGINE);
-                addStableColumn(this, SmallMoleculeColumn.BEST_SEARCH_ENGINE_SCORE);
-                break;
-            case Small_Molecule_Feature_Header:
-                //TODO add stable columns
-                break;
-            case Small_Molecule_Evidence_Header:
-                //TODO add stable columns
+                addStableColumn(this, SmallMoleculeColumn.TAXID);
+                addStableColumn(this, SmallMoleculeColumn.SPECIES);
+                addStableColumn(this, SmallMoleculeColumn.DATABASE);
+                addStableColumn(this, SmallMoleculeColumn.DATABASE_VERSION);
+                addStableColumn(this, SmallMoleculeColumn.SPECTRA_REF);
+                addStableColumn(this, SmallMoleculeColumn.SEARCH_ENGINE);
+                addStableColumn(this, SmallMoleculeColumn.MODIFICATIONS);
                 break;
             default:
                 throw new IllegalArgumentException("Can not use Comment, Metadata section.");
@@ -316,11 +311,11 @@ public class MZTabColumnFactory {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
                 }
                 break;
-//            case Small_Molecule_Header:
-//                if (column.getName().equals(SmallMoleculeColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
-//                    newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
-//                }
-//                break;
+            case Small_Molecule_Header:
+                if (column.getName().equals(SmallMoleculeColumn.SEARCH_ENGINE_SCORE.getName())) {
+                    newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
+                }
+                break;
             case PSM_Header:
                 if (column.getName().equals(PSMColumn.SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, null);
@@ -739,8 +734,8 @@ public class MZTabColumnFactory {
                 }
                 break;
             case Small_Molecule_Header:
-                //TODO fix this for SMH
-                if (header.startsWith("smallmolecule_abundance_assay") ||
+                if (header.startsWith(SmallMoleculeColumn.SEARCH_ENGINE_SCORE.getName()) ||
+                        header.startsWith("smallmolecule_abundance_assay") ||
                         header.startsWith("smallmolecule_abundance_study_variable") ||
                         header.startsWith("smallmolecule_abundance_stdev_study_variable") ||
                         header.startsWith("smallmolecule_abundance_std_error_study_variable")) {

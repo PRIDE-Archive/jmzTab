@@ -126,7 +126,7 @@ public class Peptide extends MZTabRecord {
      * A "|" delimited list of search engine(s) used to identify this peptide. Search engines must be supplied as parameters.
      */
     public SplitList<Param> getSearchEngine() {
-        return getSplitList(PeptideColumn.SEARCH_ENGINE.getLogicPosition(), Param.class);
+        return getSplitList(PeptideColumn.SEARCH_ENGINE.getLogicPosition());
     }
 
     /**
@@ -293,7 +293,7 @@ public class Peptide extends MZTabRecord {
      * It is thus also expected that modification reliability scores will typically be reported at the PSM-level only.
      */
     public SplitList<Modification> getModifications() {
-        return getSplitList(PeptideColumn.MODIFICATIONS.getLogicPosition(), Modification.class);
+        return getSplitList(PeptideColumn.MODIFICATIONS.getLogicPosition());
     }
 
     /**
@@ -353,7 +353,7 @@ public class Peptide extends MZTabRecord {
      * Retention time MUST be reported in seconds. Otherwise, units MUST be reported in the Metadata Section ("colunit-peptide").
      */
     public SplitList<Double> getRetentionTime() {
-        return getSplitList(PeptideColumn.RETENTION_TIME.getLogicPosition(), Double.class);
+        return getSplitList(PeptideColumn.RETENTION_TIME.getLogicPosition());
     }
 
     /**
@@ -427,7 +427,7 @@ public class Peptide extends MZTabRecord {
      * ("colunit-peptide").
      */
     public SplitList<Double> getRetentionTimeWindow() {
-        return getSplitList(PeptideColumn.RETENTION_TIME_WINDOW.getLogicPosition(), Double.class);
+        return getSplitList(PeptideColumn.RETENTION_TIME_WINDOW.getLogicPosition());
     }
 
     /**
@@ -577,7 +577,7 @@ public class Peptide extends MZTabRecord {
      * Multiple spectra MUST be referenced using a "|" delimited list.
      */
     public SplitList<SpectraRef> getSpectraRef() {
-        return getSplitList(PeptideColumn.SPECTRA_REF.getLogicPosition(), SpectraRef.class);
+        return getSplitList(PeptideColumn.SPECTRA_REF.getLogicPosition());
     }
 
     /**
