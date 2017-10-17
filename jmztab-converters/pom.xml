@@ -12,7 +12,7 @@
     <properties>
         <uk.ac.ebi.pride.utilities-pride-utilities.version>2.0.15</uk.ac.ebi.pride.utilities-pride-utilities.version>
         <uk.ac.ebi.pride.jaxb-pride-jaxb.version>1.0.18</uk.ac.ebi.pride.jaxb-pride-jaxb.version>
-        <uk.ac.ebi.pride-px-submission-core.version>2.0.17</uk.ac.ebi.pride-px-submission-core.version>
+        <uk.ac.ebi.pride-px-submission-core.version>2.0.18</uk.ac.ebi.pride-px-submission-core.version>
         <uk.ac.ebi.jmzidml-jmzidentml.version>1.2.6</uk.ac.ebi.jmzidml-jmzidentml.version>
     </properties>
 
