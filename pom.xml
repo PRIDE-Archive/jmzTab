@@ -163,6 +163,19 @@
 
     <profiles>
         <profile>
+            <id>ebi-repos</id>
+            <repositories>
+                <repository>
+                    <id>nexus-ebi-release-repo</id>
+                    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+                </repository>
+                <repository>
+                    <id>nexus-ebi-snapshot-repo</id>
+                    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
             <id>jmztab-distribution-build</id>  <!--mvn package -P jmztab-distribution-build -->
             <build>
                 <plugins>

@@ -175,22 +175,22 @@ public class MTDLineParserTest {
 
     @Test
     public void testMsRunLocationNull() throws Exception {
-        parser.parse(1, "MTD\tms_run[1]-location\tnull\n", errorList);
-        parser.parse(1, "MTD\tms_run[2]-location\tfile://C:/path/to/my/file\n", errorList);
-        parser.parse(1, "MTD\tms_run[2]-id_format\t[MS, MS:1000774, multiple peak list, nativeID format]\n", errorList);
-        parser.parse(1, "MTD\tms_run[2]-fragmentation_method\t[MS, MS:1000133, CID, ]\n", errorList);
-        parser.parse(1, "MTD\tms_run[3]-location\tftp://ftp.ebi.ac.uk/path/to/file\n", errorList);
+        parser.parse(1, "MTD\tms_run[1]-location\tnull"+MZTabConstants.NEW_LINE, errorList);
+        parser.parse(1, "MTD\tms_run[2]-location\tfile://C:/path/to/my/file"+MZTabConstants.NEW_LINE, errorList);
+        parser.parse(1, "MTD\tms_run[2]-id_format\t[MS, MS:1000774, multiple peak list, nativeID format]"+MZTabConstants.NEW_LINE, errorList);
+        parser.parse(1, "MTD\tms_run[2]-fragmentation_method\t[MS, MS:1000133, CID, ]"+MZTabConstants.NEW_LINE, errorList);
+        parser.parse(1, "MTD\tms_run[3]-location\tftp://ftp.ebi.ac.uk/path/to/file"+MZTabConstants.NEW_LINE, errorList);
         assertTrue(metadata.getMsRunMap().size() == 3);
         MsRun msRun1 = metadata.getMsRunMap().get(1);
         assertNull(msRun1.getLocation());
-        assertEquals(msRun1.toString(),"MTD\tms_run[1]-location\tnull\n");
+        assertEquals(msRun1.toString(),"MTD\tms_run[1]-location\tnull"+MZTabConstants.NEW_LINE);
 
 
         MsRun msRun2 = metadata.getMsRunMap().get(2);
         assertTrue(msRun2.getLocation().toString().equals("file://C:/path/to/my/file"));
         assertTrue(msRun2.getFragmentationMethod().getAccession().equals("MS:1000133"));
 
-        parser.parse(1, "MTD\tms_run[2]-hash\tde9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3\n", errorList);
+        parser.parse(1, "MTD\tms_run[2]-hash\tde9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3\n\r", errorList);
         parser.parse(1, "MTD\tms_run[2]-hash_method\t[MS, MS: MS:1000569, SHA-1, ]\n", errorList);
         assertTrue(msRun2.getHash().equals("de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3"));
         assertTrue(msRun2.getHashMethod().getName().equals("SHA-1"));

@@ -7,7 +7,7 @@ package uk.ac.ebi.pride.jmztab.model;
  * @since 08/03/13
  */
 public class MZTabConstants {
-    public final static String NEW_LINE = System.getProperty("line.separator");
+    public final static String NEW_LINE = "\r\n";//System.getProperty("line.separator");
     public final static String NULL = "null";
     public final static String INFINITY = "INF";
     public final static String CALCULATE_ERROR = "NaN";
