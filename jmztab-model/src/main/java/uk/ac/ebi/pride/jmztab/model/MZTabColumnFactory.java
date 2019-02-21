@@ -235,8 +235,7 @@ public class MZTabColumnFactory {
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(column);
         }
     }
 
@@ -278,8 +277,7 @@ public class MZTabColumnFactory {
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(column);
         }
     }
 
@@ -324,8 +322,7 @@ public class MZTabColumnFactory {
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(column);
         }
     }
 
@@ -335,7 +332,10 @@ public class MZTabColumnFactory {
      * For example, logical position is 092, then the order number is 9.
      */
     private String getColumnOrder(String position) {
-        return position.substring(0, 2);
+        System.out.println("GetColumnOrder of: "+position);
+        String result = position.substring(0, 2);
+        System.out.println("ColumnOrder string is: "+result);
+        return result;
     }
 
     /**
@@ -349,8 +349,7 @@ public class MZTabColumnFactory {
         }
 
         MZTabColumn column = ProteinColumn.GO_TERMS;
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
+        checkOptionalColumn(column);
     }
 
     /**
@@ -374,8 +373,7 @@ public class MZTabColumnFactory {
         }
 
         if (column != null) {
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -398,8 +396,7 @@ public class MZTabColumnFactory {
 
         if (column != null) {
             column.setOrder(order);
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -424,8 +421,7 @@ public class MZTabColumnFactory {
         }
 
         if (column != null) {
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -448,24 +444,37 @@ public class MZTabColumnFactory {
 
         if (column != null) {
             column.setOrder(order);
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
     private String addOptionColumn(MZTabColumn column) {
-
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
-
+        checkOptionalColumn(column);
         return column.getLogicPosition();
+    }
+
+    private void checkOptionalColumn(MZTabColumn column) throws IllegalArgumentException {
+        if(optionalColumnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getName() + " is already assigned to: " + optionalColumnMapping.get(column.getLogicPosition()).getName());
+        }
+        optionalColumnMapping.put(column.getLogicPosition(), column);
+        if(columnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getName() + " is already assigned to: " + columnMapping.get(column.getLogicPosition()).getName());
+        }
+        columnMapping.put(column.getLogicPosition(), column);
+    }
+    
+    private void checkAbundanceOptionalColumn(MZTabColumn column) throws IllegalArgumentException {
+        if(abundanceColumnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getName() + " is already assigned to: " + abundanceColumnMapping.get(column.getLogicPosition()).getName());
+        }
+        abundanceColumnMapping.put(column.getLogicPosition(), column);
     }
 
     private String addOptionColumn(MZTabColumn column, String order) {
 
         column.setOrder(order);
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
+        checkOptionalColumn(column);
 
         return column.getLogicPosition();
     }
@@ -496,6 +505,7 @@ public class MZTabColumnFactory {
      * @param columnType SHOULD NOT empty.
      */
     public String addOptionalColumn(Assay assay, String name, Class columnType) {
+        System.out.println(columnMapping);
         MZTabColumn column = new OptionColumn(assay, name, columnType, new Integer(getColumnOrder(columnMapping.lastKey())));
         return addOptionColumn(column);
     }
@@ -622,12 +632,14 @@ public class MZTabColumnFactory {
      */
     public String addAbundanceOptionalColumn(Assay assay) {
         MZTabColumn column = AbundanceColumn.createOptionalColumn(section, assay, new Integer(getColumnOrder(columnMapping.lastKey())));
+        checkAbundanceOptionalColumn(column);
         abundanceColumnMapping.put(column.getLogicPosition(), column);
         return addOptionColumn(column);
     }
 
     public String addAbundanceOptionalColumn(Assay assay, String order) {
         MZTabColumn column = AbundanceColumn.createOptionalColumn(section, assay, new Integer(order));
+        checkAbundanceOptionalColumn(column);
         abundanceColumnMapping.put(column.getLogicPosition(), column);
         return addOptionColumn(column, order);
     }
@@ -642,6 +654,10 @@ public class MZTabColumnFactory {
      */
     public String addAbundanceOptionalColumn(StudyVariable studyVariable) {
         SortedMap<String, MZTabColumn> columns = AbundanceColumn.createOptionalColumns(section, studyVariable, new Integer(getColumnOrder(columnMapping.lastKey())));
+        for(MZTabColumn col:columns.values()) {
+            checkAbundanceOptionalColumn(col);
+            checkOptionalColumn(col);
+        }
         abundanceColumnMapping.putAll(columns);
         optionalColumnMapping.putAll(columns);
         columnMapping.putAll(columns);
@@ -650,6 +666,10 @@ public class MZTabColumnFactory {
 
     public String addAbundanceOptionalColumn(StudyVariable studyVariable, String order) {
         SortedMap<String, MZTabColumn> columns = AbundanceColumn.createOptionalColumns(section, studyVariable, order);
+        for(MZTabColumn col:columns.values()) {
+            checkAbundanceOptionalColumn(col);
+            checkOptionalColumn(col);
+        }	
         abundanceColumnMapping.putAll(columns);
         optionalColumnMapping.putAll(columns);
         columnMapping.putAll(columns);

@@ -13,19 +13,20 @@ public class OptionColumn extends MZTabColumn {
 
     /**
      * Get the optional column header, which start with the prefix "opt_".
-     * the format: opt_{IndexedElement[id]}_{value}. Spaces within the parameter's name MUST be replaced by '_'.
+     * the format: opt_{IndexedElement[id]}_{name}. Spaces within the parameter's name MUST be replaced by '_'.
      *
-     * @param element if the value relates to all replicates, we use "global" in header. Here, if user set element is null for
-     *                define for all replicates.
-     * @param value SHOULD NOT be empty.
+     * @param element if the name relates to all replicates, we use "global" in header. Here, if user set element is null for
+                define for all replicates.
+     * @param name SHOULD NOT be empty.
+     * @return the header string used to identify this column in mzTab.
      */
-    public static String getHeader(IndexedElement element, String value) {
-        if (MZTabUtils.isEmpty(value)) {
+    public static String getHeader(IndexedElement element, String name) {
+        if (MZTabUtils.isEmpty(name)) {
             throw new IllegalArgumentException("Optional column's value should not be empty.");
         }
 
         return OPT + "_" + (element == null ? GLOBAL : element.getReference()) +
-                "_" + value.replaceAll(" ", "_");
+                "_" + name.replaceAll(" ", "_");
     }
 
     /**
@@ -33,13 +34,13 @@ public class OptionColumn extends MZTabColumn {
      *
      * @see #getHeader() generate optional column header.
      *
-     * @param element if the value relates to all replicates, we use "global" in header. Here, if user set element is null for
-     *                define for all replicates.
-     * @param value SHOULD NOT be empty.
+     * @param element if the name relates to all replicates, we use "global" in header. Here, if user set element is null for
+                define for all replicates.
+     * @param name SHOULD NOT be empty.
      * @param columnType SHOULD NOT be empty.
      * @param offset SHOULD be positive integer.
      */
-    public OptionColumn(IndexedElement element, String value, Class columnType, int offset) {
-        super(getHeader(element, value), columnType, true, offset + 1 + "");
+    public OptionColumn(IndexedElement element, String name, Class columnType, int offset) {
+        super(getHeader(element, name), columnType, true, offset + 1 + "");
     }
 }
