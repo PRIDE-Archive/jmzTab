@@ -17,4 +17,5 @@ public class MZTabConstants {
     public final static char BAR = '\u007c';
     public final static char COLON = ':';
     public final static char COMMA = ',';
+    public final static Integer ORDER_DIGITS = 6;
 }

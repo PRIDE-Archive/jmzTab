@@ -54,7 +54,7 @@ public class AbundanceColumn extends MZTabColumn {
      * The column position: always most right side, calculated by offset.
      */
     private AbundanceColumn(Section section, Field field, IndexedElement element, int offset) {
-        super(translate(section.getName()) + "_" + field.name, field.columnType, true, offset + field.position + "");
+        super(translate(section.getName()) + "_" + field.name, field.columnType, true, offset + "");
         setElement(element);
     }
 
@@ -101,17 +101,17 @@ public class AbundanceColumn extends MZTabColumn {
         }
 
         //In this case we know the real position in which the column need to star, so the offset is one less
-        int offset = new Integer(order)-1;
+        int offset = Integer.parseInt(order)-1;
 
         SortedMap<String, MZTabColumn> columns = new TreeMap<String, MZTabColumn>();
         Section dataSection = Section.toDataSection(section);
 
         AbundanceColumn column;
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, offset);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, offset + AbundanceColumn.Field.ABUNDANCE.position);
         columns.put(column.getLogicPosition(), column);
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, offset);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, offset + AbundanceColumn.Field.ABUNDANCE_STDEV.position);
         columns.put(column.getLogicPosition(), column);
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, offset);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, offset + AbundanceColumn.Field.ABUNDANCE_STD_ERROR.position);
         columns.put(column.getLogicPosition(), column);
 
         return columns;
@@ -131,11 +131,11 @@ public class AbundanceColumn extends MZTabColumn {
         Section dataSection = Section.toDataSection(section);
 
         AbundanceColumn column;
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, lastOrder);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE, studyVariable, lastOrder + AbundanceColumn.Field.ABUNDANCE.position);
         columns.put(column.getLogicPosition(), column);
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, lastOrder);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STDEV, studyVariable, lastOrder + AbundanceColumn.Field.ABUNDANCE_STDEV.position);
         columns.put(column.getLogicPosition(), column);
-        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, lastOrder);
+        column = new AbundanceColumn(dataSection, Field.ABUNDANCE_STD_ERROR, studyVariable, lastOrder + AbundanceColumn.Field.ABUNDANCE_STD_ERROR.position);
         columns.put(column.getLogicPosition(), column);
 
         return columns;
