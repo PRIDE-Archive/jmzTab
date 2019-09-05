@@ -30,6 +30,9 @@ public class PositionMapping {
             header = headerList[physicalPosition];
             MZTabColumn column = factory.findColumnByHeader(header);
             if (column != null) {
+                if(column.getLogicPosition()==null) { 
+                    throw new IllegalArgumentException("Column logical position must not be null!");
+                }
                 put(physicalPosition, column.getLogicPosition());
             }
         }
@@ -77,5 +80,10 @@ public class PositionMapping {
         }
 
         return reverseMappings;
+    }
+
+    @Override
+    public String toString() {
+        return "PositionMapping{" + "mappings=" + mappings + '}';
     }
 }

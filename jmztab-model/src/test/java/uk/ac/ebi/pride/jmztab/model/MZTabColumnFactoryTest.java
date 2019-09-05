@@ -3,6 +3,7 @@ package uk.ac.ebi.pride.jmztab.model;
 import org.junit.Test;
 
 import java.util.SortedMap;
+import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertEquals;
  * @since 29/05/13
  */
 public class MZTabColumnFactoryTest {
+
     @Test
     public void testProteinColumns() throws Exception {
         MZTabColumnFactory factory = MZTabColumnFactory.getInstance(Section.Protein_Header);
@@ -74,5 +76,36 @@ public class MZTabColumnFactoryTest {
         assertEquals(optionSize, optionalColumns.size());
 
         assertEquals(stableColumns.size() + optionalColumns.size(), factory.getColumnMapping().size());
+    }
+
+    /**
+     * https://github.com/PRIDE-Utilities/jmzTab/issues/11
+     */
+    @Test
+    public void testOptionalColumnsAndManyRows() {
+        Metadata mtd = new Metadata();
+        mtd.setMZTabMode(MZTabDescription.Mode.Summary);
+        mtd.setMZTabType(MZTabDescription.Type.Quantification);
+
+        MZTabColumnFactory factory = MZTabColumnFactory.getInstance(Section.Small_Molecule);
+        factory.addDefaultStableColumns();
+        factory.addURIOptionalColumn();
+        factory.addBestSearchEngineScoreOptionalColumn(SmallMoleculeColumn.BEST_SEARCH_ENGINE_SCORE, 1);
+        int nonAssayColumns = factory.getColumnMapping().size();
+
+        for (int fileCounter = 1; fileCounter <= 50; fileCounter++) {
+
+            MsRun msRun = new MsRun(fileCounter);
+            mtd.addMsRun(msRun);
+            mtd.addAssayMsRun(fileCounter, msRun);
+            Assay assay = mtd.getAssayMap().get(fileCounter);
+
+            factory.addOptionalColumn(assay, "peak_mz", String.class);
+            factory.addOptionalColumn(assay, "peak_rt", String.class);
+            factory.addOptionalColumn(assay, "peak_height", String.class);
+
+            System.out.println("count: " + fileCounter + " factory: " + factory.toString());
+            assertEquals(nonAssayColumns+(fileCounter*3), factory.getColumnMapping().size());
+        }
     }
 }

@@ -220,23 +220,19 @@ public class MZTabColumnFactory {
      */
     public void addOptionalColumn(MZTabColumn column, MsRun msRun) {
         String position = column.getLogicPosition();
-        if (columnMapping.containsKey(position)) {
-            throw new IllegalArgumentException("There exists column " + columnMapping.get(position) + " in position " + position);
-        }
 
         MZTabColumn newColumn = null;
 
         if (section == Section.Protein_Header) {
-            if (column.getName().equals(ProteinColumn.NUM_PSMS.getName()) ||
-                    column.getName().equals(ProteinColumn.NUM_PEPTIDES_DISTINCT.getName()) ||
-                    column.getName().equals(ProteinColumn.NUM_PEPTIDES_UNIQUE.getName())) {
+            if (column.getHeader().equals(ProteinColumn.NUM_PSMS.getName()) ||
+                    column.getHeader().equals(ProteinColumn.NUM_PEPTIDES_DISTINCT.getName()) ||
+                    column.getHeader().equals(ProteinColumn.NUM_PEPTIDES_UNIQUE.getName())) {
                 newColumn = MZTabColumn.createOptionalColumn(section, column, null, msRun);
             }
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(newColumn);
         }
     }
 
@@ -252,24 +248,24 @@ public class MZTabColumnFactory {
     public void addBestSearchEngineScoreOptionalColumn(MZTabColumn column, Integer id) {
         String position = column.getLogicPosition();
         if (columnMapping.containsKey(position)) {
-            throw new IllegalArgumentException("There exists column " + columnMapping.get(position) + " in position " + position);
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getHeader() + " is already assigned to: " + columnMapping.get(column.getLogicPosition()).getHeader());
         }
 
         MZTabColumn newColumn = null;
 
         switch (section) {
             case Protein_Header:
-                if (column.getName().equals(ProteinColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(ProteinColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, null);
                 }
                 break;
             case Peptide_Header:
-                if (column.getName().equals(PeptideColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(PeptideColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, null);
                 }
                 break;
             case Small_Molecule_Header:
-                if (column.getName().equals(SmallMoleculeColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(SmallMoleculeColumn.BEST_SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, null);
                 }
                 break;
@@ -278,8 +274,7 @@ public class MZTabColumnFactory {
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(newColumn);
         }
     }
 
@@ -295,37 +290,36 @@ public class MZTabColumnFactory {
     public void addSearchEngineScoreOptionalColumn(MZTabColumn column, Integer id, MsRun msRun) {
         String position = column.getLogicPosition();
         if (columnMapping.containsKey(position)) {
-            throw new IllegalArgumentException("There exists column " + columnMapping.get(position) + " in position " + position);
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getHeader() + " is already assigned to: " + columnMapping.get(column.getLogicPosition()).getHeader());
         }
 
         MZTabColumn newColumn = null;
 
         switch (section) {
             case Protein_Header:
-                if (column.getName().equals(ProteinColumn.SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(ProteinColumn.SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
                 }
                 break;
             case Peptide_Header:
-                if (column.getName().equals(PeptideColumn.SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(PeptideColumn.SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
                 }
                 break;
             case Small_Molecule_Header:
-                if (column.getName().equals(SmallMoleculeColumn.SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(SmallMoleculeColumn.SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, msRun);
                 }
                 break;
             case PSM_Header:
-                if (column.getName().equals(PSMColumn.SEARCH_ENGINE_SCORE.getName())) {
+                if (column.getHeader().equals(PSMColumn.SEARCH_ENGINE_SCORE.getName())) {
                     newColumn = MZTabColumn.createOptionalColumn(section, column, id, null);
                 }
                 break;
         }
 
         if (newColumn != null) {
-            optionalColumnMapping.put(newColumn.getLogicPosition(), newColumn);
-            columnMapping.put(newColumn.getLogicPosition(), newColumn);
+            checkOptionalColumn(newColumn);
         }
     }
 
@@ -335,7 +329,7 @@ public class MZTabColumnFactory {
      * For example, logical position is 092, then the order number is 9.
      */
     private String getColumnOrder(String position) {
-        return position.substring(0, 2);
+        return position.substring(0, MZTabConstants.ORDER_DIGITS);
     }
 
     /**
@@ -349,8 +343,7 @@ public class MZTabColumnFactory {
         }
 
         MZTabColumn column = ProteinColumn.GO_TERMS;
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
+        checkOptionalColumn(column);
     }
 
     /**
@@ -374,8 +367,7 @@ public class MZTabColumnFactory {
         }
 
         if (column != null) {
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -398,8 +390,7 @@ public class MZTabColumnFactory {
 
         if (column != null) {
             column.setOrder(order);
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -424,8 +415,7 @@ public class MZTabColumnFactory {
         }
 
         if (column != null) {
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
@@ -448,24 +438,37 @@ public class MZTabColumnFactory {
 
         if (column != null) {
             column.setOrder(order);
-            optionalColumnMapping.put(column.getLogicPosition(), column);
-            columnMapping.put(column.getLogicPosition(), column);
+            checkOptionalColumn(column);
         }
     }
 
     private String addOptionColumn(MZTabColumn column) {
-
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
-
+        checkOptionalColumn(column);
         return column.getLogicPosition();
+    }
+
+    private void checkOptionalColumn(MZTabColumn column) throws IllegalArgumentException {
+        if(optionalColumnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getHeader() + " is already assigned to: " + optionalColumnMapping.get(column.getLogicPosition()).getHeader());
+        }
+        optionalColumnMapping.put(column.getLogicPosition(), column);
+        if(columnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getHeader() + " is already assigned to: " + columnMapping.get(column.getLogicPosition()).getHeader());
+        }
+        columnMapping.put(column.getLogicPosition(), column);
+    }
+    
+    private void checkAbundanceOptionalColumn(MZTabColumn column) throws IllegalArgumentException {
+        if(abundanceColumnMapping.containsKey(column.getLogicPosition())) {
+            throw new IllegalArgumentException("Key " + column.getLogicPosition() + " for column " + column.getHeader() + " is already assigned to: " + abundanceColumnMapping.get(column.getLogicPosition()).getHeader());
+        }
+        abundanceColumnMapping.put(column.getLogicPosition(), column);
     }
 
     private String addOptionColumn(MZTabColumn column, String order) {
 
         column.setOrder(order);
-        optionalColumnMapping.put(column.getLogicPosition(), column);
-        columnMapping.put(column.getLogicPosition(), column);
+        checkOptionalColumn(column);
 
         return column.getLogicPosition();
     }
@@ -622,12 +625,14 @@ public class MZTabColumnFactory {
      */
     public String addAbundanceOptionalColumn(Assay assay) {
         MZTabColumn column = AbundanceColumn.createOptionalColumn(section, assay, new Integer(getColumnOrder(columnMapping.lastKey())));
+        checkAbundanceOptionalColumn(column);
         abundanceColumnMapping.put(column.getLogicPosition(), column);
         return addOptionColumn(column);
     }
 
     public String addAbundanceOptionalColumn(Assay assay, String order) {
         MZTabColumn column = AbundanceColumn.createOptionalColumn(section, assay, new Integer(order));
+        checkAbundanceOptionalColumn(column);
         abundanceColumnMapping.put(column.getLogicPosition(), column);
         return addOptionColumn(column, order);
     }
@@ -642,6 +647,10 @@ public class MZTabColumnFactory {
      */
     public String addAbundanceOptionalColumn(StudyVariable studyVariable) {
         SortedMap<String, MZTabColumn> columns = AbundanceColumn.createOptionalColumns(section, studyVariable, new Integer(getColumnOrder(columnMapping.lastKey())));
+        for(MZTabColumn col:columns.values()) {
+            checkAbundanceOptionalColumn(col);
+            checkOptionalColumn(col);
+        }
         abundanceColumnMapping.putAll(columns);
         optionalColumnMapping.putAll(columns);
         columnMapping.putAll(columns);
@@ -650,6 +659,10 @@ public class MZTabColumnFactory {
 
     public String addAbundanceOptionalColumn(StudyVariable studyVariable, String order) {
         SortedMap<String, MZTabColumn> columns = AbundanceColumn.createOptionalColumns(section, studyVariable, order);
+        for(MZTabColumn col:columns.values()) {
+            checkAbundanceOptionalColumn(col);
+            checkOptionalColumn(col);
+        }	
         abundanceColumnMapping.putAll(columns);
         optionalColumnMapping.putAll(columns);
         columnMapping.putAll(columns);

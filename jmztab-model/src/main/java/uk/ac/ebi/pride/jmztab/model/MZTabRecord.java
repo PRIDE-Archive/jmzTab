@@ -235,20 +235,18 @@ public abstract class MZTabRecord {
      */
     protected String getLogicalPosition(MZTabColumn column, Integer id, IndexedElement element) {
         StringBuilder sb = new StringBuilder();
-
-        sb.append(column.getOrder());
+        sb.append(String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", Integer.parseInt(column.getOrder())));
         if (id != null) {
-            // generate id string which length is 2. Eg. 12, return 12; 1, return 01
-            sb.append(String.format("%02d", id));
+            sb.append(String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", id));
         } else {
-            sb.append("00");
-        }
-        if (element != null) {
-            sb.append(String.format("%02d", element.getId()));
-        } else {
-            sb.append("00");
+            sb.append(String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", 0));
         }
 
+        if (element != null) {
+            sb.append(String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", element.getId()));
+        } else {
+            sb.append(String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", 0));
+        }
         return sb.toString();
     }
 

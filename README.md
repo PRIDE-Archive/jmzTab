@@ -103,6 +103,16 @@ The jmzTab library can currently only be found in the [EBI](http://www.ebi.ac.uk
 </repository>
 ```
 
+To compile mzTab against the EBI repositories, please add the following entry to your `~/.m2/settings.xml` file:
+
+```
+<activeProfiles>
+  <activeProfile>ebi-repos</activeProfile>
+</activeProfiles>
+```
+
+or use the `-Pebi-repos` command line switch when running Maven to enable the ebi maven repositories for parent pom
+and artifact resolution.
 
 ## News
 **jmzTab version 3.0.4 - (18. October 2016)**

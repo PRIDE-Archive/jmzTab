@@ -94,7 +94,7 @@ public abstract class MZTabHeaderLineParser extends MZTabLineParser {
     }
 
     protected String fromIndexToOrder(Integer index) {
-        return String.format("%02d", index);
+        return String.format("%0"+MZTabConstants.ORDER_DIGITS+"d", index);
     }
 
     /**
