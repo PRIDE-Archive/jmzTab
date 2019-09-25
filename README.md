@@ -1,11 +1,24 @@
 ## jmzTab
 [![Build Status](https://travis-ci.org/nilshoffmann/jmzTab.svg?branch=master)](https://travis-ci.org/nilshoffmann/jmzTab)
 
+---
+**NOTE**
+
+If you are looking for the reference implementation for mzTab-M for Metabolomics (2.0), please go [here](https://github.com/lifs-tools/jmzTab-m).
+
+---
+
+---
+**NEWS**
+
+  * As of version 3.0.9 of the jmztab library for mzTab 1.0, artefacts are now available from Maven Central.
+
+---
+
 The jmzTab library provide reading and writing capabilities, as well as supporting the validation of mzTab (1.0) for Proteomics MS data and the conversion of PRIDE XML and mzIdentML files to mzTab. Currently, the library contains converter for
   * [PRIDE XML 2.1](http://www.ebi.ac.uk/pride/schemaDocumentation.do)
   * [mzIdentML 1.1.0](http://www.psidev.info/sites/default/files/mzIdentML1.1.0.xsd)
 
-If you are looking for the reference implementation for mzTab-M for Metabolomics (2.0), please go [here](https://github.com/lifs-tools/jmzTab-m).
 
 In addition, it is important to highlight that jmzTab is already integrated and used in external software such as the [LipidDataAnalyzer](http://genome.tugraz.at/lda/), and in an mzQuantML to mzTab converter included in the [mzq-lib](https://mzq-lib.googlecode.com/) library.
 
