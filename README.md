@@ -12,9 +12,11 @@ The jmzTab library provide reading and writing capabilities, as well as supporti
 In addition, it is important to highlight that jmzTab is already integrated and used in external software such as the [LipidDataAnalyzer](http://genome.tugraz.at/lda/), and in an mzQuantML to mzTab converter included in the [mzq-lib](https://mzq-lib.googlecode.com/) library.
 
 The jmzTab library is divided in different modules:
-  * jmztab-modular-model: Data Model for mzTab [jmztab-modular-model.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-model.zip)
-  * jmztab-modular-util: Parsing capabilities and error handling [jmztab-modular-util.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-util.zip)
-  * jmztab-modular-converters: jmzTab utilities to convert PRIDE XML and mzIdentML files to mzTab [jmztab-modular-converters.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-converters.zip)
+  * jmztab-modular-model: Data Model for mzTab [jmztab-modular-model.zip (<=3.0.8)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-model.zip)
+  * jmztab-modular-util: Parsing capabilities and error handling [jmztab-modular-util.zip (<=3.0.8)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-util.zip)
+  * jmztab-modular-converters: jmzTab utilities to convert PRIDE XML and mzIdentML files to mzTab [jmztab-modular-converters.zip (<=3.0.8)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-converters.zip)
+
+The latest versions of these modules from version 3.0.9 onwards can be downloaded individually from the [ISAS Artifactory repository](https://apps.lifs.isas.de/artifactory/list/ebi-tools/uk/ac/ebi/pride/).
 
 When you use jmzTab library, please cite the following publication:
 
@@ -27,7 +29,12 @@ As examples of implementation, two [Utilities](https://github.com/PRIDE-Utilitie
   * mzTabGUI, which a simple desktop application which provides mzTab validation functionality (for Warn or Error levels), and conversion of PRIDE XML and mzIdentML files to mzTab. After the conversion, the tool will also perform an automatic validation of the mzTab file.
   * mzTabCLI, a command line interface (CLI), which provides a more flexible way of processing mzTab files in a batch mode. It also has validation and conversion functionality.
 
-Currently, both tools can be downloaded from:
+From version 3.0.9 on, both tools can be downloaded from:
+
+  * [jmztab-modular-gui.zip (3.0.9)](https://apps.lifs.isas.de/artifactory/list/ebi-tools/uk/ac/ebi/pride/jmztab-modular-gui/3.0.9/jmztab-modular-gui-3.0.9.zip)
+  * [jmztab-modular-cli.zip (3.0.9)](https://apps.lifs.isas.de/artifactory/list/ebi-tools/uk/ac/ebi/pride/jmztab-modular-cli/3.0.9/jmztab-modular-cli-3.0.9.zip)
+
+For version prior to 3.0.9, both tools can be downloaded from:
 
   * [jmztab-modular-gui.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-gui.zip)
   * [jmztab-modular-cli.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-cli.zip)
@@ -94,7 +101,28 @@ For converting to mzTab
 </dependency>
 ```
 
-Since version 3.0.9, the jmzTab library is available from Maven central. No additional settings need to be changed in your pom.xml.
+Since version 3.0.9, the jmzTab library is available from ISAS Artifactory. To retrieve it from there, please adapt your pom.xml / settings.xml as follows:
+
+```
+<profile>
+    <id>isas-repos</id>
+    <repositories>
+     <repository>
+         <id>isas-ebi-tools</id>
+         <url>https://apps.lifs.isas.de/artifactory/ebi-tools</url>
+     </repository>
+    </repositories>
+</profile>
+```
+To compile mzTab against the ISAS repository, please add the following entry to you `~/.m2/settings.xml` file:
+
+```
+<activeProfiles>
+  <activeProfile>isas-repos</activeProfile>
+</activeProfiles>
+```
+or use the `-Pisas-repos` command line switch when running Maven to enable the ISAS maven repositories for parent pom
+and artifact resolution.
 
 The jmzTab library versions prior to 3.0.9 can currently only be found in the [EBI](http://www.ebi.ac.uk)'s **maven repository**. 
 In order to work against those versions, please adapt your pom.xml / settings.xml as follows:
