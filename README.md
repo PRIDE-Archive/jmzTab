@@ -43,7 +43,7 @@ In [mzTabCLI Demo](https://github.com/PRIDE-Utilities/jmzTab/blob/master/etcs/co
 
   * print command line help
 ```
-java -jar mzTab-cli.jar -help
+java -jar mzTabCLI.jar -help
 ```
 The output will like following:
 ```
