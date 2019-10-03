@@ -11,6 +11,11 @@
             <outputDirectory>${assembly.dir}/lib</outputDirectory>
             <unpack>false</unpack>
             <scope>runtime</scope>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useProjectAttachments>false</useProjectAttachments>
+            <excludes>
+                <exclude>junit:junit</exclude>
+            </excludes>
         </dependencySet>
     </dependencySets>
 
@@ -38,6 +43,14 @@
             <outputDirectory>${assembly.dir}/examples</outputDirectory>
             <includes>
                 <include>*.*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/../</directory>
+            <outputDirectory>${assembly.dir}</outputDirectory>
+            <includes>
+                <include>*.md</include>
+                <include>LICENSE</include>
             </includes>
         </fileSet>
     </fileSets>
