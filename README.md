@@ -36,8 +36,8 @@ From version 3.0.9 on, both tools can be downloaded from:
 
 For version prior to 3.0.9, both tools can be downloaded from:
 
-  * [jmztab-modular-gui.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-gui.zip)
-  * [jmztab-modular-cli.zip (latest version)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-cli.zip)
+  * [jmztab-modular-gui.zip (<=3.0.8)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-gui.zip)
+  * [jmztab-modular-cli.zip (<=3.0.8)](http://www.ebi.ac.uk/pride/resources/tools/jmztab/latest/jmztab-modular-cli.zip)
 
 In [mzTabCLI Demo](https://github.com/PRIDE-Utilities/jmzTab/blob/master/etcs/command_demo.bat), we provide a couple of examples to help user call command line interface quickly.
 
