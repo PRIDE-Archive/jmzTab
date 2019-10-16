@@ -101,27 +101,31 @@ For converting to mzTab
 </dependency>
 ```
 
-Since version 3.0.9, the jmzTab library is available from ISAS Artifactory. To retrieve it from there, please adapt your pom.xml / settings.xml as follows:
+Since version 3.0.9, the jmzTab library is available from the LIFS Bintray repository. To retrieve it from there, please adapt your pom.xml / settings.xml as follows:
 
 ```
 <profile>
-    <id>isas-repos</id>
+    <id>lifs-repos</id>
     <repositories>
      <repository>
-         <id>isas-ebi-tools</id>
-         <url>https://apps.lifs.isas.de/artifactory/ebi-tools</url>
+         <snapshots>
+             <enabled>false</enabled>
+         </snapshots>
+         <id>bintray-lifs</id>
+         <name>bintray-lifs</name>
+         <url>https://dl.bintray.com/lifs/maven</url>
      </repository>
     </repositories>
 </profile>
 ```
-To compile mzTab against the ISAS repository, please add the following entry to you `~/.m2/settings.xml` file:
+To compile mzTab against the LIFS Bintray repository, please add the following entry to you `~/.m2/settings.xml` file:
 
 ```
 <activeProfiles>
-  <activeProfile>isas-repos</activeProfile>
+  <activeProfile>lifs-repos</activeProfile>
 </activeProfiles>
 ```
-or use the `-Pisas-repos` command line switch when running Maven to enable the ISAS maven repositories for parent pom
+or use the `-Plifs-repos` command line switch when running Maven to enable the LIFS Bintray maven repositories for parent pom
 and artifact resolution.
 
 The jmzTab library versions prior to 3.0.9 can currently only be found in the [EBI](http://www.ebi.ac.uk)'s **maven repository**. 
