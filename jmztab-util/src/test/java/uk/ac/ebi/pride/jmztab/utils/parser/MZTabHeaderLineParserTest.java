@@ -87,12 +87,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Abundance Columns
         headerLine += "\tprotein_abundance_assay[1]";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("protein_abundance_assay[1]");
         assertNotNull(column);
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tprotein_abundance_study_variable[1]\tprotein_abundance_stdev_study_variable[1]\tprotein_abundance_std_error_study_variable[1]";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("protein_abundance_study_variable[1]");
         assertNotNull(column);
@@ -105,6 +107,7 @@ public class MZTabHeaderLineParserTest {
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tprotein_abundance_assay[2]";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("protein_abundance_assay[2]");
         assertNotNull(column);
@@ -112,12 +115,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional Column which start with opt_
         headerLine += "\topt_ms_run[1]_my_value";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_ms_run[1]_my_value");
         assertNotNull(column);
         assertTrue(column instanceof OptionColumn);
 
         headerLine += "\topt_global_my_value";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_my_value");
         assertNotNull(column);
@@ -125,12 +130,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional CVParam Column
         headerLine += "\topt_assay[1]_cv_MS:1002217_decoy_peptide";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_assay[1]_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
         assertTrue(column instanceof CVParamOptionColumn);
 
         headerLine += "\topt_global_cv_MS:1002217_decoy_peptide";
+        parser = new PRHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
@@ -153,6 +160,7 @@ public class MZTabHeaderLineParserTest {
 //        assertEquals(headerLine.split("\t").length - 1 , parser.getFactory().getStableColumnMapping().size());
 
         headerLine += "\tbest_search_engine_score[1]";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         assertEquals(headerLine.split("\t").length - 1 , parser.getFactory().getColumnMapping().size());
         count = 1;
@@ -160,6 +168,7 @@ public class MZTabHeaderLineParserTest {
 
         // check reliability and uri optional columns
         headerLine += "\treliability\turi";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         assertEquals(headerLine.split("\t").length - 1, parser.getFactory().getColumnMapping().size());
         count += 2;
@@ -167,6 +176,7 @@ public class MZTabHeaderLineParserTest {
 
         // test search_engine_score[1]_ms_run[1]	search_engine_score[1]_ms_run[2]
         headerLine += "\tsearch_engine_score[1]_ms_run[1]\tsearch_engine_score[1]_ms_run[2]";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         assertEquals(headerLine.split("\t").length - 1, parser.getFactory().getColumnMapping().size());
         count += 2;
@@ -176,12 +186,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Abundance Columns
         headerLine += "\tpeptide_abundance_assay[1]";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("peptide_abundance_assay[1]");
         assertNotNull(column);
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tpeptide_abundance_study_variable[1]\tpeptide_abundance_stdev_study_variable[1]\tpeptide_abundance_std_error_study_variable[1]";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("peptide_abundance_study_variable[1]");
         assertNotNull(column);
@@ -194,6 +206,7 @@ public class MZTabHeaderLineParserTest {
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tpeptide_abundance_assay[2]";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("peptide_abundance_assay[2]");
         assertNotNull(column);
@@ -201,12 +214,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional Column which start with opt_
         headerLine += "\topt_ms_run[1]_my_value";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_ms_run[1]_my_value");
         assertNotNull(column);
         assertTrue(column instanceof OptionColumn);
 
         headerLine += "\topt_global_my_value";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_my_value");
         assertNotNull(column);
@@ -214,12 +229,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional CVParam Column
         headerLine += "\topt_assay[1]_cv_MS:1002217_decoy_peptide";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_assay[1]_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
         assertTrue(column instanceof CVParamOptionColumn);
 
         headerLine += "\topt_global_cv_MS:1002217_decoy_peptide";
+        parser = new PEHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
@@ -250,6 +267,7 @@ public class MZTabHeaderLineParserTest {
 
         // check optional columns with stable order.
         headerLine += "\treliability\turi";
+        parser = new PSHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         assertEquals(headerLine.split("\t").length - 1, parser.getFactory().getColumnMapping().size());
         count += 2;
@@ -257,12 +275,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional Column which start with opt_
         headerLine += "\topt_ms_run[1]_my_value";
+        parser = new PSHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_ms_run[1]_my_value");
         assertNotNull(column);
         assertTrue(column instanceof OptionColumn);
 
         headerLine += "\topt_global_my_value";
+        parser = new PSHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_my_value");
         assertNotNull(column);
@@ -270,12 +290,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Optional CVParam Column
         headerLine += "\topt_assay[1]_cv_MS:1002217_decoy_peptide";
+        parser = new PSHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_assay[1]_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
         assertTrue(column instanceof CVParamOptionColumn);
 
         headerLine += "\topt_global_cv_MS:1002217_decoy_peptide";
+        parser = new PSHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("opt_global_cv_MS:1002217_decoy_peptide");
         assertNotNull(column);
@@ -303,6 +325,7 @@ public class MZTabHeaderLineParserTest {
 
         // check optional columns with stable order.
         headerLine += "\treliability\turi";
+        parser = new SMHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         assertEquals(headerLine.split("\t").length - 1, parser.getFactory().getColumnMapping().size());
         count += 2;
@@ -310,6 +333,7 @@ public class MZTabHeaderLineParserTest {
 
         // check flexible optional columns with stable order.
         headerLine += "\tsearch_engine_score[1]_ms_run[1]\tsearch_engine_score[1]_ms_run[2]";
+        parser = new SMHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("search_engine_score[1]_ms_run[2]");
         assertNotNull(column);
@@ -318,12 +342,14 @@ public class MZTabHeaderLineParserTest {
 
         // check Abundance Columns
         headerLine += "\tsmallmolecule_abundance_assay[1]";
+        parser = new SMHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("smallmolecule_abundance_assay[1]");
         assertNotNull(column);
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tsmallmolecule_abundance_study_variable[1]\tsmallmolecule_abundance_stdev_study_variable[1]\tsmallmolecule_abundance_std_error_study_variable[1]";
+        parser = new SMHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("smallmolecule_abundance_study_variable[1]");
         assertNotNull(column);
@@ -336,6 +362,7 @@ public class MZTabHeaderLineParserTest {
         assertTrue(column instanceof AbundanceColumn);
 
         headerLine += "\tsmallmolecule_abundance_assay[2]";
+        parser = new SMHLineParser(metadata);
         parser.parse(1, headerLine, errorList);
         column = parser.getFactory().findColumnByHeader("smallmolecule_abundance_assay[2]");
         assertNotNull(column);
@@ -359,13 +386,31 @@ public class MZTabHeaderLineParserTest {
         factory = parser1.getFactory();
         parser1.parse(1, headerLine, errorList);
         PositionMapping positionMapping1 = new PositionMapping(factory, headerLine);
-        assertEquals(positionMapping1.size(), factory.getColumnMapping().size());
-        assertEquals("110001",positionMapping1.get(11));
-        assertEquals("110002",positionMapping1.get(12));
-        assertEquals("120001",positionMapping1.get(13));
-        assertEquals("120002",positionMapping1.get(14));
-        assertEquals("130001",positionMapping1.get(15));
-        assertEquals("130002",positionMapping1.get(16));
+        System.out.println("PositionMapping: " + positionMapping1);
+        MZTabColumn column = parser1.getFactory().findColumnByHeader("best_search_engine_score[1]");
+        assertNotNull("best_search_engine_score[1] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("search_engine_score[1]_ms_run[1]");
+        assertNotNull("search_engine_score[1]_ms_run[1] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("num_psms_ms_run[1]");
+        assertNotNull("num_psms_ms_run[1] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("num_psms_ms_run[2]");
+        assertNotNull("num_psms_ms_run[2] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("num_peptides_distinct_ms_run[1]");
+        assertNotNull("num_peptides_distinct_ms_run[1] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("num_peptides_unique_ms_run[2]");
+        assertNotNull("num_peptides_distinct_ms_run[2] not known to factory!", column);
+        column = parser1.getFactory().findColumnByHeader("go_terms");
+        assertNotNull("go_terms not known to factory!", column);
+        int columns = headerLine.split("\t").length;
+        assertEquals(columns-1, factory.getColumnMapping().size());
+        //see MZTabConstants.ORDER_DIGITS for the number of digits used for the position string segments.
+        //The position string format is ORDER + ID + ELEMENT_ID (ID and ELEMENT_ID may be 0 when either of the elements is undefined)
+        assertEquals("000011"+"000000"+"000001",positionMapping1.get(11));
+        assertEquals("000011"+"000000"+"000002",positionMapping1.get(12));
+        assertEquals("000012"+"000000"+"000001",positionMapping1.get(13));
+        assertEquals("000012"+"000000"+"000002",positionMapping1.get(14));
+        assertEquals("000013"+"000000"+"000001",positionMapping1.get(15));
+        assertEquals("000013"+"000000"+"000002",positionMapping1.get(16));
 
         PRHLineParser parser2 = new PRHLineParser(metadata);
         // change physical position of taxid
@@ -376,15 +421,16 @@ public class MZTabHeaderLineParserTest {
             "num_psms_ms_run[2]\tnum_peptides_distinct_ms_run[1]\tnum_peptides_distinct_ms_run[2]\t" +
             "num_peptides_unique_ms_run[1]\tnum_peptides_unique_ms_run[2]\tambiguity_members\tmodifications\turi\tgo_terms\tprotein_coverage";
         factory = parser2.getFactory();
+        columns = headerLine.split("\t").length;
         parser2.parse(1, headerLine, errorList);
         PositionMapping positionMapping2 = new PositionMapping(factory, headerLine);
-        assertEquals(positionMapping2.size(), factory.getColumnMapping().size());
-        assertEquals("110001",positionMapping1.get(11));
-        assertEquals("110002",positionMapping1.get(12));
-        assertEquals("120001",positionMapping1.get(13));
-        assertEquals("120002",positionMapping1.get(14));
-        assertEquals("130001",positionMapping1.get(15));
-        assertEquals("130002", positionMapping1.get(16));
+        assertEquals(columns-1, factory.getColumnMapping().size());
+        assertEquals("000011"+"000000"+"000001",positionMapping1.get(11));
+        assertEquals("000011"+"000000"+"000002",positionMapping1.get(12));
+        assertEquals("000012"+"000000"+"000001",positionMapping1.get(13));
+        assertEquals("000012"+"000000"+"000002",positionMapping1.get(14));
+        assertEquals("000013"+"000000"+"000001",positionMapping1.get(15));
+        assertEquals("000013"+"000000"+"000002", positionMapping1.get(16));
 
         Set<String> mapping1LogicalPosition = positionMapping1.reverse().keySet();
         Set<String> mapping2LogicalPosition = positionMapping2.reverse().keySet();

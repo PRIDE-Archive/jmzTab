@@ -4,7 +4,7 @@
     <parent>
         <groupId>uk.ac.ebi.pride</groupId>
         <artifactId>jmztab-modular</artifactId>
-        <version>3.0.9-SNAPSHOT</version>
+        <version>3.0.10-SNAPSHOT</version>
     </parent>
 
     <artifactId>jmztab-modular-cli</artifactId>
@@ -32,6 +32,7 @@
     </dependencies>
 
     <build>
+        <finalName>mzTabCLI</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -39,20 +40,20 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
-            </plugin>
-            <plugin>
+            </plugin>-->
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -76,7 +77,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <finalName>mzTabCLI</finalName>
                     <!-- comment exclusion section out if want to run batch dbtest -->
                     <excludes>
                         <exclude>**/test</exclude>
@@ -87,17 +87,10 @@
                             <!--provide a CLI for jmztab-->
                             <mainClass>uk.ac.ebi.pride.jmztab.MZTabCommandLine</mainClass>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
+                            <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -127,6 +120,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <source>8</source>
                             <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
                     </execution>

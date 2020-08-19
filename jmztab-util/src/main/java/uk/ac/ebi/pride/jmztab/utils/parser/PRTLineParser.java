@@ -36,9 +36,11 @@ public class PRTLineParser extends MZTabDataLineParser {
         int physicalPosition;
         String logicalPosition;
         protein = new Protein(factory);
-
         for (physicalPosition = 1; physicalPosition < items.length; physicalPosition++) {
             logicalPosition = positionMapping.get(physicalPosition);
+            if(logicalPosition == null) {
+                throw new IllegalArgumentException("No position mapping available for physicalPosition=" +physicalPosition + " with value=" + items[physicalPosition]);
+            }
             column = factory.getColumnMapping().get(logicalPosition);
 
             if (column != null) {

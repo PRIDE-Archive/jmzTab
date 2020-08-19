@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 
 /**
  * @author qingwei
@@ -26,7 +27,8 @@ public class ProteinValidateTest {
     private PRTLineParser prtParser;
     private MZTabColumnFactory prhFactory;
 
-    public ProteinValidateTest() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         MTDLineParserTest test = new MTDLineParserTest();
         String fileName = "testset/mtdFile.txt";
         Metadata metadata;

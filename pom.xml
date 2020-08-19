@@ -3,13 +3,14 @@
 
     <groupId>uk.ac.ebi.pride</groupId>
     <artifactId>jmztab-modular</artifactId>
-    <version>3.0.9-SNAPSHOT</version>
+    <!-- based on mzTab specification version 1.0 -->
+    <version>3.0.10-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>uk.ac.ebi.pride.architectural</groupId>
         <artifactId>pride-core</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <developers>
@@ -64,6 +65,30 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.26</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>1.7.26</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <resources>
@@ -75,14 +100,32 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>5.2.1</version>
+                    <configuration>
+                        <cveValidForHours>12</cveValidForHours>
+                        <failBuildOnCVSS>4</failBuildOnCVSS>
+                        <skipProvidedScope>true</skipProvidedScope>
+                        <skipRuntimeScope>true</skipRuntimeScope>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.10</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.2</version>
                     <configuration>
                         <excludes>
                             <exclude>**/test</exclude>
@@ -93,7 +136,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.1.1</version>
                     <configuration>
                         <appendAssemblyId>false</appendAssemblyId>
                     </configuration>
@@ -101,16 +144,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -124,6 +168,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.0.1</version>
                     <configuration>
                         <destDir>docs</destDir>
                         <!--output directory for the documentation-->
@@ -139,6 +184,8 @@
                             </goals>
                             <phase>package</phase>
                             <configuration>
+                                <source>8</source>
+                                <detectJavaApiLink>false</detectJavaApiLink>
                                 <additionalparam>-Xdoclint:none</additionalparam>
                             </configuration>
                         </execution>
@@ -149,10 +196,28 @@
                             </goals>
                             <phase>package</phase>
                             <configuration>
+                                <source>8</source>
+                                <detectJavaApiLink>false</detectJavaApiLink>
                                 <additionalparam>-Xdoclint:none</additionalparam>
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M3</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -160,13 +225,26 @@
 
     <profiles>
         <profile>
+            <id>ebi-repos</id>
+            <repositories>
+                <repository>
+                    <id>nexus-ebi-release-repo</id>
+                    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+                </repository>
+                <repository>
+                    <id>nexus-ebi-snapshot-repo</id>
+                    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
             <id>jmztab-distribution-build</id>  <!--mvn package -P jmztab-distribution-build -->
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.10</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>copy-dependency</id>
@@ -189,7 +267,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <version>2.6</version>
+                        <version>3.1.1</version>
                         <configuration>
                             <excludes>
                                 <exclude>**/test</exclude>
@@ -240,7 +318,7 @@
                     <!--assembly to zip-->
                     <plugin>
                         <artifactId>maven-assembly-plugin</artifactId>
-                        <version>2.6</version>
+                        <version>3.1.1</version>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
@@ -257,7 +335,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
@@ -278,5 +355,13 @@
         <url>https://github.com/PRIDE-Utilities/jmzTab.git</url>
         <tag>HEAD</tag>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>lifs-ebi-tools</id>
+            <name>LIFS (inofficial) EBI Tools releases</name>
+            <url>https://apps.lifs.isas.de/artifactory/ebi-tools</url>
+        </repository>
+    </distributionManagement>
 
 </project>
