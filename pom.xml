@@ -3,7 +3,6 @@
 
     <groupId>uk.ac.ebi.pride</groupId>
     <artifactId>jmztab-modular</artifactId>
-    <!-- based on mzTab specification version 1.0 -->
     <version>3.0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -46,10 +45,8 @@
 
     <modules>
         <module>jmztab-model</module>
-        <module>jmztab-gui</module>
-        <module>jmztab-cli</module>
         <module>jmztab-converters</module>
-        <module>jmztab-util</module>
+        <module>jmztab-cli</module>
     </modules>
 
     <dependencies>

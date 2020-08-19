@@ -21,11 +21,6 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jmztab-modular-util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>jmztab-modular-converters</artifactId>
             <version>${project.version}</version>
         </dependency>
